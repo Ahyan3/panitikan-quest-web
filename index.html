@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Panitikan Quest — Reading Comprehension Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="sky"></div>
+
+<!-- ============ CONNECTION BADGE ============ -->
+<div id="connBadge" class="conn-badge conn-online">
+  <span class="dot"></span>
+  <span id="connText">Online</span>
+</div>
+
+<!-- ============ SCREEN 1: IGN ENTRY ============ -->
+<section id="screen-ign" class="screen active">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter">
+    <p class="eyebrow">Panitikan Quest</p>
+    <h1 class="title-serif">Isang Kwento, Isang Pakikipagsapalaran.</h1>
+    <p class="sub">No names, no ages, no accounts. Just an in-game name (IGN) so the Hall of Legends knows who to cheer for.</p>
+
+    <label class="field-label" for="ignInput">Your IGN</label>
+    <input id="ignInput" class="ign-input" type="text" maxlength="16" placeholder="e.g. QuietOwl27" autocomplete="off" />
+    <p class="hint" id="ignHint">2–16 characters. Letters, numbers, and _ only.</p>
+
+    <button id="enterBtn" class="btn-seal" disabled>Seal Your Scroll</button>
+  </div>
+  <p class="foot-note">Gonzalo Aler National High School · Grade 12 Reading Intervention Prototype</p>
+</section>
+
+<!-- ============ SCREEN 2: HUB / MAIN INTERFACE ============ -->
+<section id="screen-hub" class="screen">
+  <header class="hub-header">
+    <div class="ign-chip">
+      <span class="chip-label">IGN</span>
+      <span id="ignDisplay">—</span>
+    </div>
+    <div class="xp-wrap">
+      <div class="xp-row">
+        <span id="levelLabel">Apprentice Reader · Lv.1</span>
+        <span id="xpNumbers">0 / 100 XP</span>
+      </div>
+      <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
+    </div>
+    <button id="resetBtn" class="btn-ghost" title="Clear local progress">Reset</button>
+  </header>
+
+  <div class="hub-grid">
+    <div class="hub-main">
+      <h2 class="section-title">Choose Your Quest</h2>
+      <div id="questList" class="quest-list"></div>
+    </div>
+
+    <aside class="hub-side">
+      <div class="scroll-panel">
+        <h3 class="panel-title">🏆 Hall of Legends</h3>
+        <p class="panel-sub">Top 10 readers — synced across sessions</p>
+        <ol id="leaderboard" class="leaderboard"></ol>
+      </div>
+
+      <div class="scroll-panel sync-panel">
+        <h3 class="panel-title">🌐 Sync Status</h3>
+        <p id="syncText" class="sync-text">All quests synced.</p>
+        <div id="pendingList" class="pending-list"></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3: STORY / PASSAGE ============ -->
+<section id="screen-story" class="screen">
+  <div class="story-wrap">
+    <button class="btn-back" id="backFromStory">← Back to Hub</button>
+    <p class="eyebrow" id="storyEyebrow">Chapter</p>
+    <h2 class="title-serif" id="storyTitle">Title</h2>
+    <div class="story-card">
+      <div id="storyText" class="story-text"></div>
+    </div>
+    <button id="toAssessmentBtn" class="btn-seal">Face the Trial →</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4: ASSESSMENT ============ -->
+<section id="screen-assessment" class="screen">
+  <div class="story-wrap">
+    <p class="eyebrow">Trial · <span id="qCounter">1 / 5</span></p>
+    <div class="story-card quiz-card">
+      <h3 id="qText" class="q-text"></h3>
+      <div id="choices" class="choices"></div>
+      <div id="qFeedback" class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5: RESULTS ============ -->
+<section id="screen-results" class="screen">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter">
+    <p class="eyebrow" id="resultBadge">Trial Complete</p>
+    <h1 class="title-serif" id="resultHeadline">Well Read.</h1>
+    <div class="result-stats">
+      <div class="stat-box"><span id="resultScore" class="stat-num">0/5</span><span class="stat-label">Correct</span></div>
+      <div class="stat-box"><span id="resultXP" class="stat-num">+0</span><span class="stat-label">XP Earned</span></div>
+      <div class="stat-box"><span id="resultTime" class="stat-num">0s</span><span class="stat-label">Time Used</span></div>
+    </div>
+    <p class="sub" id="resultNote"></p>
+    <button id="continueBtn" class="btn-seal">Return to Hub</button>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
