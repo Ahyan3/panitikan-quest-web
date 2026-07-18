@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Receipt - Panitikan Quest</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f2f0eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      padding: 20px;
+    }
+    .receipt {
+      max-width: 700px;
+      width: 100%;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      padding: 40px 35px;
+      transition: 0.2s;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px dashed #ddd;
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1e1e2a;
+      letter-spacing: -0.5px;
+    }
+    .header h1 span {
+      color: #6c5ce7;
+    }
+    .badge {
+      background: #e8e6f0;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d2b3a;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #4a4758;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 6px 0;
+    }
+    .meta strong {
+      color: #1e1e2a;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+    }
+    .table th {
+      text-align: left;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #7b788b;
+      font-weight: 600;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eae8f0;
+    }
+    .table td {
+      padding: 14px 0;
+      border-bottom: 1px solid #f0eef5;
+      vertical-align: top;
+    }
+    .table .desc {
+      font-weight: 500;
+      color: #1e1e2a;
+      font-size: 15px;
+    }
+    .table .sub {
+      display: block;
+      font-weight: 400;
+      font-size: 13px;
+      color: #6f6b82;
+      margin-top: 2px;
+    }
+    .table .qty {
+      text-align: center;
+      color: #2d2b3a;
+      font-weight: 500;
+    }
+    .table .amount {
+      text-align: right;
+      font-weight: 600;
+      color: #1e1e2a;
+    }
+    .discount-row {
+      border-top: 2px solid #ddd;
+      margin-top: 10px;
+      padding-top: 16px;
+    }
+    .discount-row td {
+      padding: 10px 0;
+      border: none;
+    }
+    .discount-label {
+      font-weight: 600;
+      color: #1e1e2a;
+    }
+    .discount-value {
+      text-align: right;
+      color: #00a86b;
+      font-weight: 700;
+    }
+    .total-row td {
+      padding: 18px 0 8px;
+      border: none;
+    }
+    .total-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e1e2a;
+    }
+    .total-amount {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1e1e2a;
+      text-align: right;
+    }
+    .note {
+      background: #f8f7fc;
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin: 24px 0 20px;
+      font-size: 14px;
+      color: #2d2b3a;
+      border-left: 4px solid #6c5ce7;
+    }
+    .note strong {
+      color: #1e1e2a;
+    }
+
+    /* --- PAYMENT SECTION --- */
+    .payment-section {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: #f8f7fc;
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin: 20px 0 24px;
+      flex-wrap: wrap;
+      border: 1px solid #eae8f0;
+    }
+    .payment-section .qr {
+      flex-shrink: 0;
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .payment-section .qr:hover {
+      transform: scale(1.02);
+      border-color: #6c5ce7;
+    }
+    .payment-section .qr img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .payment-section .details {
+      flex: 1;
+      min-width: 160px;
+    }
+    .payment-section .details .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #7b788b;
+      font-weight: 600;
+    }
+    .payment-section .details .gcash-name {
+      font-weight: 700;
+      font-size: 18px;
+      color: #1e1e2a;
+      margin: 2px 0;
+    }
+    .payment-section .details .gcash-number {
+      font-size: 16px;
+      font-weight: 600;
+      color: #006b4c;
+      letter-spacing: 0.5px;
+    }
+    .payment-section .details .gcash-hint {
+      font-size: 13px;
+      color: #6f6b82;
+      margin-top: 2px;
+    }
+    .qr-click-hint {
+      font-size: 12px;
+      color: #7b788b;
+      margin-top: 4px;
+    }
+
+    .portfolio-link {
+      text-align: center;
+      margin: 10px 0 16px;
+    }
+    .portfolio-link a {
+      color: #6c5ce7;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 2px solid #d5cff0;
+      padding-bottom: 2px;
+      transition: 0.2s;
+    }
+    .portfolio-link a:hover {
+      border-bottom-color: #6c5ce7;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #7b788b;
+      border-top: 1px solid #eae8f0;
+      padding-top: 22px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .footer span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill {
+      background: #f0eef5;
+      border-radius: 40px;
+      padding: 2px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #3d3a4d;
+    }
+
+    /* --- LIGHTBOX / FULL-SCREEN OVERLAY --- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 30px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      cursor: default;
+      background: white;
+      padding: 8px;
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 42px;
+      color: white;
+      font-weight: 300;
+      cursor: pointer;
+      transition: 0.2s;
+      background: rgba(255,255,255,0.15);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      border: none;
+      font-family: inherit;
+    }
+    .lightbox .close-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(90deg);
+    }
+    .lightbox .caption {
+      position: absolute;
+      bottom: 40px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+      left: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 520px) {
+      .receipt { padding: 24px 18px; }
+      .header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .meta { flex-direction: column; }
+      .table td, .table th { font-size: 14px; }
+      .payment-section { flex-direction: column; align-items: center; text-align: center; }
+      .lightbox .close-btn { top: 16px; right: 16px; font-size: 32px; width: 44px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="receipt">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>🧾 <span>Ahyan</span>Dev</h1>
+      <div style="font-size:14px; color:#5e5a72; margin-top:4px;">Freelance · Research support</div>
+    </div>
+    <div class="badge">⚡ FRIENDLY RATE</div>
+  </div>
+
+  <!-- META -->
+  <div class="meta">
+    <div><strong>Invoice #</strong> Research-2026-01</div>
+    <div><strong>Date</strong> July 18, 2026</div>
+    <div><strong>For</strong> Cousin · School Research</div>
+  </div>
+
+  <!-- ITEMS TABLE -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:55%;">Service</th>
+        <th style="width:15%;text-align:center;">Qty</th>
+        <th style="width:30%;text-align:right;">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="desc">
+          📋 Requirements &amp; concept design
+          <span class="sub">Turning raw notes into a real feature spec</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,200</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🌐 Web app (HTML/CSS/JS)
+          <span class="sub">IGN system, 15 questions, XP/leveling, leaderboard, offline queue</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,800</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          📱 Android app (Kotlin + Compose)
+          <span class="sub">Full native port, SharedPreferences, connectivity detection</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱2,200</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🐞 Debugging &amp; troubleshooting
+          <span class="sub">AAPT namespace fix, Compose type-mismatch, live build fixes</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱800</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          📘 Documentation &amp; deployment guides
+          <span class="sub">README, VS Code/Vercel/Android Studio walkthroughs</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱700</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🚀 Deployment support
+          <span class="sub">Vercel walkthrough + APK install guide</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SUBTOTAL + DISCOUNT -->
+  <table style="width:100%; border-collapse:collapse;">
+    <tr class="discount-row">
+      <td style="width:70%;" class="discount-label">Subtotal (commercial value)</td>
+      <td style="width:30%; text-align:right; font-weight:600;">₱7,200</td>
+    </tr>
+    <tr>
+      <td class="discount-label" style="padding:4px 0;">
+        🎁 Pinsan / Research discount <span style="font-weight:400; color:#6f6b82; font-size:13px;">(family rate + AI-assisted speed)</span>
+      </td>
+      <td style="text-align:right; color:#00a86b; font-weight:700; padding:4px 0;">– ₱5,200</td>
+    </tr>
+    <tr class="total-row">
+      <td class="total-label">🤝 TOTAL (agreed rate)</td>
+      <td class="total-amount">₱2,000</td>
+    </tr>
+  </table>
+
+  <!-- NOTE -->
+  <div class="note">
+    <strong>💬 Why this amount?</strong><br>
+    This covers <strong>two full working platforms</strong> (web + Android), real debugging hours, and complete documentation — but with a <strong>massive family discount</strong> because it's for your Research.
+    The commercial value of all these services combined is <strong>₱7,200</strong>, but I'm knocking it down to <strong>₱2,000</strong> as a cousin-to-cousin "good luck on your defense!" rate. You're basically getting a dev team at snack-money price. 😄
+  </div>
+
+  <!-- PAYMENT SECTION: GCash QR (clickable) + Number -->
+  <div class="payment-section">
+    <div class="qr" onclick="openLightbox()" title="Click to enlarge QR code">
+      <img src="my-gcash-qr.jpg" alt="GCash QR Code" />
+    </div>
+    <div class="details">
+      <div class="label">💚 Scan to pay via</div>
+      <div class="gcash-name">GCash</div>
+      <div class="gcash-number">0948 128 6832</div>
+      <div class="gcash-hint">Send screenshot after payment 🙏</div>
+      <div class="qr-click-hint">👆 Click QR to enlarge</div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO LINK -->
+  <div class="portfolio-link">
+    🌐 View my other work: 
+    <a href="https://ryanfrancisromanov2.netlify.app/#" target="_blank">
+      ryanfrancisromanov2.netlify.app
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>✅ Paid / Unpaid — <span style="color:#1e1e2a; font-weight:500;">up to you, fam</span></span>
+    <span class="pill">#AhyanDev</span>
+  </div>
+</div>
+
+<!-- ===== LIGHTBOX OVERLAY ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="close-btn" onclick="closeLightbox(event)">✕</button>
+  <img src="my-gcash-qr.jpg" alt="GCash QR Code (enlarged)" id="lightboxImg" />
+  <div class="caption">Scan this QR with GCash</div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  function openLightbox() {
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden'; // prevent scroll
+  }
+
+  function closeLightbox(e) {
+    // Close only if clicking the backdrop OR the close button
+    if (e.target === e.currentTarget || e.target.classList.contains('close-btn') || e.target.tagName === 'BUTTON') {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Also close with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>

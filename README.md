@@ -1,74 +1,120 @@
-# Panitikan Quest — Gamified Reading Comprehension App (Prototype)
+# 📖 Panitikan Quest
 
-A working sample for your study: **"The Effects of a Gamified Reading Comprehension App
-on the Academic Performance of Grade 12 Students at Gonzalo Aler National High School."**
+**A gamified reading comprehension app, built as a research prototype for a Grade 12 reading intervention study at Gonzalo Aler National High School.**
 
-This is a runnable prototype, not a finished production app — it's meant to give you and
-your cousin something concrete to test, screenshot for your paper, and adapt.
+![Platform](https://img.shields.io/badge/platform-Web%20%7C%20Android-blue)
+![Status](https://img.shields.io/badge/status-prototype-yellow)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Made with](https://img.shields.io/badge/made%20with-Kotlin%20%26%20JavaScript-orange)
 
-## What it already implements (from your notes)
+Panitikan Quest turns short literary passages into "quests": students read a story,
+face a comprehension "trial" (a graded multiple-choice quiz), and earn XP toward a
+level, while a class-wide leaderboard ("Hall of Legends") drives friendly competition.
+No student name, age, or personal information is ever collected — only a self-chosen
+in-game name (IGN).
 
-| Requirement from your data | Where it lives |
+This repo contains **two parallel implementations** of the same app, built to be
+directly comparable for research purposes:
+
+| | Web App | Android App |
+|---|---|---|
+| **Stack** | HTML / CSS / vanilla JS | Kotlin + Jetpack Compose |
+| **Storage** | Browser `localStorage` | `SharedPreferences` |
+| **Best for** | Quick classroom testing, no install needed, deployable to Vercel | Native performance, offline-first use on student phones |
+| **Folder** | [`/web`](./web) | [`/android`](./android) |
+
+---
+
+## ✨ Features
+
+- **Privacy by design** — the only identifier collected is a self-chosen IGN (2–16
+  characters). No names, ages, or accounts.
+- **Story-driven passages** — three original short stories, each tuned to a different
+  comprehension skill: literal recall → inference → main idea & vocabulary.
+- **Graded assessments** — a 5-question comprehension check follows every passage,
+  with instant right/wrong feedback.
+- **XP & leveling** — comprehension scores convert into experience points and a
+  5-tier level progression (Apprentice Reader → Master Chronicler).
+- **Hall of Legends leaderboard** — top 10 readers, always visible on the main hub.
+- **Offline-first** — if there's no connection, quiz results are queued locally and
+  automatically synced to the leaderboard the moment connectivity returns.
+- **Consistent design language** — both apps share the same "night-sky and parchment"
+  visual identity, so the experience is the same regardless of platform.
+
+## 📸 Screenshots
+
+> _Add screenshots or a screen recording here once you've run the app — this section
+> is one of the first things people look at on a GitHub repo._
+
+## 🚀 Getting started
+
+### Web app
+```bash
+cd web
+# then open index.html with the VS Code "Live Server" extension,
+# or any static file server
+```
+No build step, no dependencies. See [`web/README.md`](./web/README.md) for offline-mode
+testing instructions and a deployment guide for Vercel.
+
+### Android app
+```bash
+cd android
+# open the folder in Android Studio once, to auto-generate the Gradle wrapper
+./gradlew installDebug   # with a device connected / emulator running
+```
+See [`android/README.md`](./android/README.md) for the full VS Code + Android Studio
+workflow, including building an installable APK.
+
+## 🗂️ Project structure
+
+```
+panitikan-quest/
+├── web/                  # HTML/CSS/JS implementation
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── README.md
+└── android/               # Kotlin + Jetpack Compose implementation
+    ├── app/src/main/java/com/ganhs/panitikanquest/
+    │   ├── MainActivity.kt
+    │   ├── data/           # models, quest content, local storage, connectivity
+    │   └── ui/             # theme, shared components, screens
+    └── README.md
+```
+
+## 🎓 Research context
+
+This prototype was built to support the study **"The Effects of a Gamified Reading
+Comprehension App on the Academic Performance of Grade 12 Students at Gonzalo Aler
+National High School."** It's designed to make it easy to observe both intended
+benefits (engagement, retry behavior, comprehension gains) and possible drawbacks
+(leaderboard anxiety, score-chasing over genuine comprehension, over-reliance on
+multiple-choice recognition) — see each platform's README for a fuller discussion.
+
+Both leaderboards currently live in local, on-device storage rather than a shared
+backend, so scores don't yet sync across different students' devices. A small backend
+(e.g. Firebase or Supabase) would be the natural next step for a school-wide deployment.
+
+## 🛠️ Tech stack
+
+| | |
 |---|---|
-| No personal info collected (no name/age) | `screen-ign` — only accepts an IGN (letters/numbers/underscore, 2–16 chars) |
-| IGN addresses the user throughout | Hub header chip, results screen |
-| Literature/text passages with story framing | `QUESTS` array in `script.js` — 3 short original passages ("chapters") |
-| Assessment after each passage | `screen-assessment` — 5 multiple-choice comprehension questions per passage |
-| Leaderboard, top 10, on main interface | `screen-hub` right panel, "Hall of Legends" |
-| Offline mode | App detects `navigator.onLine`; if offline, quiz results are queued locally |
-| Progress recorded once back online | `pending-list` panel + `syncPending()` — auto-fires on the browser's `online` event |
+| Web | HTML5, CSS3 (custom properties, no framework), vanilla JavaScript |
+| Android | Kotlin, Jetpack Compose, Material 3, SharedPreferences, ConnectivityManager |
+| Design | Shared color palette & typography across both platforms |
 
-## Running it in VS Code
+## 🤝 Contributing
 
-1. Open the `reading-quest` folder in VS Code.
-2. Install the **Live Server** extension (by Ritwick Dey) if you don't have it.
-3. Right-click `index.html` → **Open with Live Server**.
-4. To test the offline behavior: open Chrome DevTools (F12) → **Network tab** → set
-   throttling to **Offline**, finish a quest, then switch back to **Online** and watch
-   the "Sync Status" panel clear itself.
+This is a research prototype built for a specific thesis project, but suggestions and
+pull requests are welcome — particularly around accessibility, additional passages, or
+a shared backend for the leaderboard.
 
-No build step, no npm install — plain HTML/CSS/JS so it's easy to hand off, screenshot,
-or extend for your defense.
+## 📄 License
 
-## Where the "real" data would plug in later
+MIT — free to use, modify, and adapt for your own research or classroom use. Attribution
+appreciated but not required.
 
-Right now the leaderboard and progress are stored in the browser's `localStorage`, which
-is why it's per-device rather than school-wide. For an actual deployment across the
-school's computers you'd eventually want:
+## 🙏 Acknowledgments
 
-- A small backend (even a free tier like Firebase or Supabase) to hold the *shared*
-  leaderboard, so IGNs from different devices all show up together.
-- A teacher-facing export (CSV) of comprehension scores per IGN, so scores can be
-  cross-referenced against LAT results or grades — without ever storing a student's name
-  inside the app itself, if you want to keep that anonymity guarantee.
-
-## Ideas for what to actually test (positive *and* negative effects)
-
-Since your research question asks about both, here's what this prototype is built to let
-you measure or observe:
-
-**Possible positive effects to test for**
-- Comprehension score change (pre-test vs. LAT-style post-test) after regular use
-- Time-on-task / voluntary engagement (does the leaderboard increase attempts per week?)
-- Persistence on harder passages (do students retry after a "Keep Practicing" result?)
-
-**Possible negative effects to watch for**
-- Leaderboard anxiety — some students may disengage entirely if they never crack the
-  top 10; worth asking about this directly in your survey/interview instrument
-- Score-chasing over comprehension — students memorizing answer patterns rather than
-  reading, especially if the same 3 passages are reused too long
-- Over-reliance on multiple choice — MCQ assessment doesn't test recall or writing, only
-  recognition, which your discussion section may want to flag as a limitation
-- Offline/connectivity frustration — if a school's Wi-Fi is unreliable, repeated "syncing"
-  messages could feel discouraging rather than reassuring
-
-You can adapt the wording in `resultNote` / `resultHeadline` in `script.js` if your
-instrument needs specific phrasing for "encouraging" vs. "neutral" feedback conditions,
-in case you want to A/B test tone as part of the study design.
-
-## Extending the content
-
-All passages and questions live in the `QUESTS` array at the top of `script.js`. Add a
-new object to the array (same shape) to add a chapter — quests unlock in order, so a new
-quest appended at the end will unlock once the previous one has been attempted at least
-once.
+Built for Gonzalo Aler National High School's Grade 12 reading intervention research.
