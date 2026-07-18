@@ -78,6 +78,106 @@ She was, in her quiet and stubborn way, teaching them that reading was not just 
       { q: 'What is the best statement of the passage\'s main idea?', choices: ['Torn books are more valuable than whole ones', 'Removing a story\'s ending can push readers to engage more deeply and imagine their own', 'Children always prefer their own stories to published ones', 'Aling Puring disliked the authors of the books she sold'], correct: 1 },
       { q: 'Why did parents complain to Aling Puring?', choices: ['They thought she was damaging the books', 'They wanted more books in the store', 'They disliked the children\'s notebooks', 'They thought the store was too crowded'], correct: 0 }
     ]
+  },
+  {
+    id: 'q4',
+    icon: '🎙️',
+    title: 'The Sound Collector',
+    level: 'Chapter 4 · Author\'s Purpose & Vocabulary',
+    xp: 70,
+    text: `In Barangay Malinis, a boy named Julio carried an old cassette recorder everywhere: to the market at dawn, to the chapel bell at noon, to the roof during a storm. He was building an archive, he told his classmates, of "every sound the barangay makes before it forgets how to make it quietly."
+
+No one understood what he meant until the highway construction began. Trucks arrived, followed by drills, and within a month the market's morning chatter had to compete with diesel engines. Julio played his tapes for his Lola Fely, who was slowly losing her hearing; through his recordings, she said, she could still hear the barangay the way she remembered it — rooster crows sharp and rain hushed, not swallowed by machinery.
+
+Julio never explained his hobby as an act of preservation. He called it, simply, "collecting," as if sound were something you could put in a jar and open later. But when the town council debated whether to pave over the old market entirely, it was Julio's tapes — not photographs, not petitions — that convinced the oldest council members to vote against it. They said the recordings made them homesick for a place they were still standing in.`,
+    questions: [
+      { q: 'What did Julio do with his cassette recorder?', choices: ['He sold it to tourists', 'He recorded everyday sounds around the barangay', 'He used it to record music for a band', 'He gave it away to his Lola'], correct: 1 },
+      { q: 'Why did Julio\'s hobby become more meaningful after highway construction began?', choices: ['The construction paid him for the recordings', 'The construction changed the sounds of daily life he had been recording', 'He stopped recording once construction began', 'The construction destroyed his recorder'], correct: 1 },
+      { q: 'What is Lola Fely\'s connection to the recordings?', choices: ['She helped Julio build the recorder', 'She was losing her hearing and the tapes let her recall familiar sounds', 'She recorded the tapes herself', 'She disapproved of Julio\'s hobby'], correct: 1 },
+      { q: 'Why might Julio prefer the word "collecting" over "preserving"?', choices: ['"Collecting" sounds more modest, less like making a grand statement about saving something', '"Preserving" is a word he didn\'t know', '"Collecting" means the sounds are for sale', 'There is no real difference between the two words'], correct: 0 },
+      { q: 'What is the best statement of the passage\'s main idea?', choices: ['Cassette recorders are outdated technology', 'Small, ordinary sounds can hold onto a sense of place even as that place changes', 'Highway construction always destroys communities', 'Council members preferred photographs over recordings'], correct: 1 }
+    ]
+  },
+  {
+    id: 'q5',
+    icon: '✉️',
+    title: 'Letters to No One',
+    level: 'Chapter 5 · Figurative Language & Imagery',
+    xp: 85,
+    text: `Every Sunday, Marisola wrote a letter to someone she had never met: the person who would someday live in her childhood home after her family moved away. She never mailed these letters — there was no address for a stranger who did not exist yet — so she kept them folded into a shoebox under her bed, growing thicker each year.
+
+In the letters, she described small things a new owner might never notice: which floorboard creaked like an old man clearing his throat, how the mango tree in the yard dropped fruit "like the earth was returning a favor," and the exact hour the afternoon light turned the kitchen the color of weak tea.
+
+When her family finally did move, years later than she'd once imagined, Marisola left the shoebox behind — not hidden, but placed deliberately on the closet shelf, as if she had been writing toward this moment the entire time. She never learned who moved in after her, or whether they found the letters at all. But she said, packing the last box into the truck, that it no longer mattered whether the letters were ever read. Writing them had been her way of holding the house a little longer before she had to let it go.`,
+    questions: [
+      { q: 'Who did Marisola write letters to?', choices: ['A childhood friend who moved away', 'A future stranger who would someday live in her home', 'Her own future self', 'A pen pal from another country'], correct: 1 },
+      { q: 'What does "like the earth was returning a favor" suggest about the falling mangoes?', choices: ['The mangoes were rotten and should be thrown away', 'The tree\'s fruit felt like a natural, generous gift back to the family', 'The earth was punishing the family', 'The mangoes fell only due to bad weather'], correct: 1 },
+      { q: 'What did Marisola do with the letters when her family moved?', choices: ['She burned them', 'She mailed them to a random address', 'She left them deliberately on a closet shelf', 'She brought them along in a suitcase'], correct: 2 },
+      { q: 'Why does the passage suggest the letters mattered, even unread?', choices: ['Writing them helped her process saying goodbye to her home', 'She hoped to sell them someday', 'She wanted to prove she was a good writer', 'She was required to write them for school'], correct: 0 },
+      { q: 'What is "the color of weak tea" most likely describing?', choices: ['A pale, warm afternoon light in the kitchen', 'The taste of the family\'s actual tea', 'The color of the letters\' paper', 'The mango tree\'s bark'], correct: 0 }
+    ]
+  },
+  {
+    id: 'q6',
+    icon: '🏛️',
+    title: 'The Debate at Barangay Hall',
+    level: 'Chapter 6 · Claims, Evidence & Counterclaims',
+    xp: 100,
+    text: `At the barangay hall, two neighbors stood to speak about the cracked basketball court where every teenager in Malinis had learned to play. Mang Ronnie argued that the court should be rebuilt as a covered multipurpose hall, pointing out that games were cancelled every rainy season and that a covered hall could also host assemblies, feeding programs, and typhoon evacuations. He cited the barangay next door, which had built one two years prior and reported near-daily use, rain or shine.
+
+Aling Ditas countered that the court held memories a new hall could not replace — three decades of championship banners, hand-painted lines redone by volunteers every summer, a mural of local basketball heroes on the perimeter wall. She agreed the rain was a real problem but proposed a middle path: build a simple roof over the existing court rather than demolish it, preserving the mural and banners while solving the weather issue at a lower cost.
+
+The council did not decide that night. But several residents who arrived expecting a straightforward yes-or-no vote left instead debating Aling Ditas's compromise, turning the meeting from a disagreement between two positions into a search for a third one nobody had proposed before it was said aloud.`,
+    questions: [
+      { q: 'What was Mang Ronnie\'s main proposal?', choices: ['Close the court permanently', 'Replace the court with a fully covered multipurpose hall', 'Move the court to another barangay', 'Charge fees to use the court'], correct: 1 },
+      { q: 'What evidence did Mang Ronnie use to support his argument?', choices: ['A survey of teenagers\' opinions', 'A neighboring barangay\'s similar hall being used nearly every day', 'A newspaper article about basketball courts', 'His own personal preference only'], correct: 1 },
+      { q: 'What was Aling Ditas\'s central concern about tearing down the old court?', choices: ['The cost of construction', 'Losing sentimental features like the mural and championship banners', 'She disliked basketball', 'She wanted a swimming pool instead'], correct: 1 },
+      { q: 'What compromise did Aling Ditas propose?', choices: ['Build a roof over the existing court instead of demolishing it', 'Cancel the entire renovation project', 'Build a second court elsewhere', 'Let residents vote online'], correct: 0 },
+      { q: 'What is the best description of how the meeting ended?', choices: ['The council immediately approved Mang Ronnie\'s plan', 'No resolution was reached, but the discussion led to a new, third idea', 'Aling Ditas\'s plan was rejected outright', 'The meeting ended in an argument with no further discussion'], correct: 1 }
+    ]
+  }
+];
+
+/* ------------------------------------------------------------
+   BADGES — derived entirely from existing progress/xp state,
+   so no new persistence is needed. Gives students more to chase
+   beyond raw leaderboard rank.
+   ------------------------------------------------------------ */
+const BADGES = [
+  {
+    id: 'first_steps',
+    icon: '🥾',
+    title: 'First Steps',
+    desc: 'Complete your first quest.',
+    isUnlocked: (progress, xp) => Object.keys(progress).length >= 1
+  },
+  {
+    id: 'perfect_recall',
+    icon: '🌟',
+    title: 'Perfect Recall',
+    desc: 'Score 5/5 on any quest.',
+    isUnlocked: (progress, xp) => Object.values(progress).some(score => score === 5)
+  },
+  {
+    id: 'halfway_hero',
+    icon: '🗺️',
+    title: 'Halfway Hero',
+    desc: 'Attempt at least half of all quests.',
+    isUnlocked: (progress, xp) => Object.keys(progress).length >= Math.ceil(QUESTS.length / 2)
+  },
+  {
+    id: 'bookworm',
+    icon: '📚',
+    title: 'Bookworm',
+    desc: 'Attempt every quest at least once.',
+    isUnlocked: (progress, xp) => Object.keys(progress).length >= QUESTS.length
+  },
+  {
+    id: 'chronicler',
+    icon: '👑',
+    title: 'Master Chronicler',
+    desc: 'Reach the top level (400 XP).',
+    isUnlocked: (progress, xp) => xp >= 400
   }
 ];
 
@@ -203,7 +303,24 @@ function renderHub(){
   });
 
   renderLeaderboard();
+  renderBadges();
   renderSyncStatus();
+}
+
+function renderBadges(){
+  const wrap = document.getElementById('badgeGrid');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  BADGES.forEach(badge => {
+    const unlocked = badge.isUnlocked(state.progress, state.xp);
+    const cell = document.createElement('div');
+    cell.className = 'badge-cell' + (unlocked ? ' unlocked' : '');
+    cell.title = badge.desc;
+    cell.innerHTML = `
+      <span class="badge-icon">${badge.icon}</span>
+      <span class="badge-title">${badge.title}</span>`;
+    wrap.appendChild(cell);
+  });
 }
 
 function renderLeaderboard(){
