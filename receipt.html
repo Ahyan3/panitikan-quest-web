@@ -153,7 +153,7 @@
       color: #1e1e2a;
     }
 
-    /* --- PAYMENT SECTION --- */
+    /* PAYMENT SECTION */
     .payment-section {
       display: flex;
       align-items: center;
@@ -263,7 +263,7 @@
       color: #3d3a4d;
     }
 
-    /* --- LIGHTBOX / FULL-SCREEN OVERLAY --- */
+    /* LIGHTBOX */
     .lightbox {
       display: none;
       position: fixed;
@@ -351,9 +351,9 @@
 
   <!-- META -->
   <div class="meta">
-    <div><strong>Invoice #</strong> Research-2026-01</div>
-    <div><strong>Date</strong> July 18, 2026</div>
-    <div><strong>For</strong> Cousin · School Research</div>
+    <div><strong>Invoice #</strong> Research-2026-02</div>
+    <div><strong>Date</strong> July 19, 2026</div>
+    <div><strong>For</strong> Cousin · School Research (Expanded Scope)</div>
   </div>
 
   <!-- ITEMS TABLE -->
@@ -366,6 +366,7 @@
       </tr>
     </thead>
     <tbody>
+      <!-- Original services -->
       <tr>
         <td class="desc">
           📋 Requirements &amp; concept design
@@ -414,6 +415,48 @@
         <td class="qty">1</td>
         <td class="amount">₱500</td>
       </tr>
+
+      <!-- NEW services from the feature update -->
+      <tr>
+        <td class="desc">
+          📈 Progressive difficulty scaling
+          <span class="sub">Questions increase in difficulty and quantity (up to 30 total)</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,000</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🔊 Sound effects system
+          <span class="sub">Correct/wrong sounds, level completion, background music (toggle)</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱800</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          👁️ Answer visibility enhancement
+          <span class="sub">Clear display of correct answer after each question</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          📚 Post‑game recommendations
+          <span class="sub">Personalized reading suggestions based on performance</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱700</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🔒 Chapter lock/unlock system
+          <span class="sub">Progressive chapter access, no replay until game complete</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,200</td>
+      </tr>
     </tbody>
   </table>
 
@@ -421,28 +464,28 @@
   <table style="width:100%; border-collapse:collapse;">
     <tr class="discount-row">
       <td style="width:70%;" class="discount-label">Subtotal (commercial value)</td>
-      <td style="width:30%; text-align:right; font-weight:600;">₱7,200</td>
+      <td style="width:30%; text-align:right; font-weight:600;">₱11,400</td>
     </tr>
     <tr>
       <td class="discount-label" style="padding:4px 0;">
-        🎁 Pinsan / Research discount <span style="font-weight:400; color:#6f6b82; font-size:13px;">(family rate + AI-assisted speed)</span>
+        🎁 Pinsan / Research discount <span style="font-weight:400; color:#6f6b82; font-size:13px;">(family rate + AI‑assisted speed)</span>
       </td>
-      <td style="text-align:right; color:#00a86b; font-weight:700; padding:4px 0;">– ₱4,200</td>
+      <td style="text-align:right; color:#00a86b; font-weight:700; padding:4px 0;">– ₱6,400</td>
     </tr>
     <tr class="total-row">
       <td class="total-label">🤝 TOTAL (agreed rate)</td>
-      <td class="total-amount">₱3,000</td>
+      <td class="total-amount">₱5,000</td>
     </tr>
   </table>
 
   <!-- NOTE -->
   <div class="note">
     <strong>💬 Why this amount?</strong><br>
-    This covers <strong>two full working platforms</strong> (web + Android), real debugging hours, and complete documentation — but with a <strong>massive family discount</strong> because it's for your Research.
-    The commercial value of all these services combined is <strong>₱7,200</strong>, but I'm knocking it down to <strong>₱3,000</strong> as a cousin-to-cousin "good luck on your defense!" rate. You're basically getting a dev team at snack-money price. 😄
+    This covers <strong>two full working platforms</strong> (web + Android) plus the <strong>new feature set</strong> (progressive difficulty, sound effects, visible answers, recommendations, and chapter locking).  
+    The commercial value of all services combined is <strong>₱11,400</strong>, but I'm giving a <strong>hefty family discount</strong> to land at <strong>₱5,000</strong> – still a steal for a complete gamified Research tool. 😄
   </div>
 
-  <!-- PAYMENT SECTION: GCash QR (clickable) + Number -->
+  <!-- PAYMENT SECTION -->
   <div class="payment-section">
     <div class="qr" onclick="openLightbox()" title="Click to enlarge QR code">
       <img src="my-gcash-qr.jpg" alt="GCash QR Code" />
@@ -471,29 +514,26 @@
   </div>
 </div>
 
-<!-- ===== LIGHTBOX OVERLAY ===== -->
+<!-- LIGHTBOX OVERLAY -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <button class="close-btn" onclick="closeLightbox(event)">✕</button>
   <img src="my-gcash-qr.jpg" alt="GCash QR Code (enlarged)" id="lightboxImg" />
   <div class="caption">Scan this QR with GCash</div>
 </div>
 
-<!-- ===== JAVASCRIPT ===== -->
 <script>
   function openLightbox() {
     document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden'; // prevent scroll
+    document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox(e) {
-    // Close only if clicking the backdrop OR the close button
     if (e.target === e.currentTarget || e.target.classList.contains('close-btn') || e.target.tagName === 'BUTTON') {
       document.getElementById('lightbox').classList.remove('active');
       document.body.style.overflow = '';
     }
   }
 
-  // Also close with Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       document.getElementById('lightbox').classList.remove('active');

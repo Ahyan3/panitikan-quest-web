@@ -49,8 +49,13 @@
       </div>
       <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
     </div>
+    <button id="musicToggleBtn" class="btn-ghost" title="Toggle background music">🔇 Music: Off</button>
     <button id="resetBtn" class="btn-ghost" title="Clear local progress">Reset</button>
   </header>
+
+  <div id="completionBanner" class="completion-banner" style="display:none;">
+    <span>🎉 All quests complete! Tap to view your reading recommendations.</span>
+  </div>
 
   <div class="hub-grid">
     <div class="hub-main">
@@ -97,6 +102,10 @@
 <section id="screen-assessment" class="screen">
   <div class="story-wrap">
     <p class="eyebrow">Trial · <span id="qCounter">1 / 5</span></p>
+    <div id="timerWrap" class="timer-wrap" style="display:none;">
+      <div class="timer-bar"><div id="timerBarFill" class="timer-bar-fill"></div></div>
+      <span id="timerText" class="timer-text">⏱ 30s</span>
+    </div>
     <div class="story-card quiz-card">
       <h3 id="qText" class="q-text"></h3>
       <div id="choices" class="choices"></div>
@@ -118,6 +127,37 @@
     </div>
     <p class="sub" id="resultNote"></p>
     <button id="continueBtn" class="btn-seal">Return to Hub</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 6: REVIEW (completed quests, read-only) ============ -->
+<section id="screen-review" class="screen">
+  <div class="story-wrap">
+    <button class="btn-back" id="backFromReview">← Back to Hub</button>
+    <p class="eyebrow" id="reviewEyebrow">Chapter</p>
+    <h2 class="title-serif" id="reviewTitle">Title</h2>
+    <p class="review-score" id="reviewScore">Best score: 0/5</p>
+    <div id="reviewList" class="review-list"></div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 7: GAME COMPLETION + RECOMMENDATIONS ============ -->
+<section id="screen-completion" class="screen">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter completion-card">
+    <p class="eyebrow">🏆 Game Complete</p>
+    <h1 class="title-serif">Every Chapter, Read.</h1>
+    <div class="result-stats">
+      <div class="stat-box"><span id="completionScore" class="stat-num">0/30</span><span class="stat-label">Total Score</span></div>
+      <div class="stat-box"><span id="completionXP" class="stat-num">0 XP</span><span class="stat-label">Earned</span></div>
+      <div class="stat-box"><span id="completionTier" class="stat-num">—</span><span class="stat-label">Reader Tier</span></div>
+    </div>
+    <p class="sub" id="completionTierNote"></p>
+
+    <h3 class="panel-title" style="margin-top:10px;">📚 Recommended Next Reads</h3>
+    <div id="recommendationList" class="recommendation-list"></div>
+
+    <button id="completionContinueBtn" class="btn-seal" style="margin-top:18px;">Return to Hub</button>
   </div>
 </section>
 

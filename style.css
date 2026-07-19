@@ -374,3 +374,96 @@ body{
   .parchment{ padding:30px 22px; }
   .story-card{ padding:24px 18px; }
 }
+
+/* ============================================================
+   NEW: difficulty chips, completion banner, timer, review,
+   completion + recommendations
+   ============================================================ */
+.diff-chip{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:9px;
+  padding:2px 6px;
+  border-radius:4px;
+  margin-left:6px;
+  vertical-align:middle;
+  border:1px solid currentColor;
+}
+.diff-easy{ color:var(--sage); }
+.diff-medium{ color:var(--gold); }
+.diff-hard{ color:var(--ember); }
+
+.quest-card.completed{ opacity:0.75; }
+.quest-card.completed:hover{ transform:none; border-color:rgba(228,197,96,0.18); }
+
+.completion-banner{
+  display:flex; align-items:center; justify-content:center;
+  gap:10px;
+  background:linear-gradient(160deg, rgba(228,197,96,0.18), rgba(228,197,96,0.08));
+  border:1px solid rgba(228,197,96,0.4);
+  border-radius:10px;
+  padding:14px 18px;
+  margin-bottom:24px;
+  color:var(--parchment);
+  font-size:13.5px;
+  font-weight:600;
+  cursor:pointer;
+  text-align:center;
+}
+
+.timer-wrap{
+  display:flex; align-items:center; gap:10px;
+  margin:10px 0 16px;
+}
+.timer-bar{
+  flex:1; height:7px; border-radius:999px;
+  background:rgba(255,255,255,0.15);
+  overflow:hidden;
+}
+.timer-bar-fill{
+  height:100%; width:100%;
+  background:var(--gold);
+  transition:width 1s linear, background .3s;
+}
+.timer-text{
+  font-family:var(--mono); font-size:12px; color:var(--gold);
+  min-width:48px; text-align:right;
+}
+
+.review-score{
+  font-family:var(--mono); font-size:13px; color:var(--gold);
+  margin:-8px 0 20px;
+}
+.review-list{ display:flex; flex-direction:column; gap:14px; }
+.review-item{
+  background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
+  border-radius:10px;
+  padding:18px 20px;
+}
+.review-q{ font-family:var(--serif); font-size:15.5px; color:var(--ink); margin:0 0 8px; }
+.review-answer{ font-size:13.5px; margin:4px 0; font-family:var(--sans); }
+.review-answer.right{ color:var(--sage); font-weight:600; }
+.review-answer.wrong{ color:var(--ember); font-weight:600; }
+
+.completion-card{ width:min(560px, 92vw); text-align:left; }
+.completion-card .eyebrow, .completion-card .title-serif{ text-align:center; }
+.completion-card .result-stats{ margin-top:10px; }
+
+.recommendation-list{ display:flex; flex-direction:column; gap:12px; margin-top:12px; }
+.rec-card{
+  background:rgba(255,255,255,0.4);
+  border:1px solid rgba(107,93,70,0.2);
+  border-radius:8px;
+  padding:14px 16px;
+}
+.rec-card h4{
+  margin:0 0 6px; font-family:var(--serif); font-size:15px; color:var(--ink);
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.rec-tag{
+  font-family:var(--mono); font-size:9.5px; font-weight:600;
+  color:var(--gold); background:rgba(201,162,39,0.12);
+  border:1px solid rgba(201,162,39,0.3);
+  padding:2px 6px; border-radius:4px;
+}
+.rec-card p{ margin:0; font-size:13px; color:var(--muted); line-height:1.5; }
