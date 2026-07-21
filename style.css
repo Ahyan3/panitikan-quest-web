@@ -31,7 +31,6 @@ body{
   overflow-x:hidden;
 }
 
-/* Night-sky backdrop with a slow shimmer, evoking a story told after dark */
 .sky{
   position:fixed; inset:0; z-index:-2;
   background:
@@ -51,9 +50,6 @@ body{
   opacity:0.8;
 }
 
-/* ============================================================
-   SCREENS
-   ============================================================ */
 .screen{
   display:none;
   min-height:100vh;
@@ -64,39 +60,46 @@ body{
 .screen.active{ display:flex; }
 
 /* ============================================================
-   CONNECTION BADGE — the signature status element
+   TOASTS — generic notifications + achievement celebrations
    ============================================================ */
-.conn-badge{
-  position:fixed; top:16px; right:16px; z-index:50;
-  display:flex; align-items:center; gap:8px;
-  padding:7px 14px 7px 10px;
+.toast-container{
+  position:fixed; top:16px; left:50%; transform:translateX(-50%);
+  z-index:100;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  pointer-events:none;
+}
+.toast{
+  font-family:var(--sans); font-size:13px; font-weight:600;
+  color:var(--ink);
+  background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
+  border:1px solid rgba(107,93,70,0.25);
   border-radius:999px;
-  font-family:var(--mono);
-  font-size:12px; font-weight:600; letter-spacing:0.02em;
-  background:rgba(19,28,51,0.7);
-  border:1px solid rgba(228,197,96,0.25);
-  color:var(--parchment);
-  backdrop-filter:blur(6px);
+  padding:10px 20px;
+  box-shadow:var(--shadow-deep);
+  opacity:0; transform:translateY(-14px) scale(0.95);
+  transition:opacity .3s ease, transform .3s ease;
+  white-space:nowrap;
 }
-.conn-badge .dot{
-  width:8px; height:8px; border-radius:50%;
-  background:var(--sage);
-  box-shadow:0 0 8px var(--sage);
+.toast.show{ opacity:1; transform:translateY(0) scale(1); }
+.toast-celebrate{
+  background:linear-gradient(160deg, var(--gold-soft), var(--gold));
+  color:#241A10;
+  font-size:14px;
+  animation:celebrate-pop 0.5s ease;
+  box-shadow:0 0 0 4px rgba(228,197,96,0.25), var(--shadow-deep);
 }
-.conn-badge.conn-offline .dot{
-  background:var(--ember);
-  box-shadow:0 0 8px var(--ember);
-  animation:pulse 1.4s infinite;
+@keyframes celebrate-pop{
+  0%{ transform:translateY(-14px) scale(0.7) rotate(-3deg); }
+  50%{ transform:translateY(2px) scale(1.08) rotate(2deg); }
+  100%{ transform:translateY(0) scale(1) rotate(0); }
 }
-@keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
 
 /* ============================================================
-   PARCHMENT CARD (IGN entry + results)
+   PARCHMENT CARD (IGN entry, results, completion, out-of-hearts)
    ============================================================ */
 .parchment{
   width:min(480px, 92vw);
-  background:
-    linear-gradient(160deg, var(--parchment), var(--parchment-2));
+  background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
   border-radius:var(--radius);
   padding:40px 34px;
   box-shadow:var(--shadow-deep), inset 0 0 0 1px rgba(107,93,70,0.15);
@@ -160,7 +163,8 @@ body{
   transition:border-color .15s;
 }
 .ign-input:focus{ border-color:var(--gold); }
-.hint{ font-size:11.5px; color:var(--muted); text-align:left; margin:6px 0 24px; }
+.hint{ font-size:11.5px; color:var(--muted); text-align:left; margin:6px 0 8px; }
+.resume-note{ font-size:12px; color:var(--sage); text-align:left; margin:0 0 20px; min-height:16px; font-weight:600; }
 
 .btn-seal{
   width:100%;
@@ -174,6 +178,7 @@ body{
   cursor:pointer;
   box-shadow:0 8px 18px rgba(201,162,39,0.35);
   transition:transform .12s, box-shadow .12s;
+  margin-bottom:10px;
 }
 .btn-seal:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 12px 22px rgba(201,162,39,0.45); }
 .btn-seal:disabled{ opacity:0.4; cursor:not-allowed; box-shadow:none; }
@@ -192,7 +197,7 @@ body{
 #screen-hub{ align-items:stretch; max-width:1080px; margin:0 auto; }
 .hub-header{
   display:flex; align-items:center; gap:20px;
-  margin-bottom:32px;
+  margin-bottom:16px;
   flex-wrap:wrap;
 }
 .ign-chip{
@@ -215,12 +220,35 @@ body{
 .xp-bar{ height:8px; border-radius:999px; background:rgba(255,255,255,0.1); overflow:hidden; }
 .xp-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--sage), var(--gold)); transition:width .4s ease; }
 
+.coin-chip{
+  font-family:var(--mono); font-weight:700; font-size:14px;
+  color:var(--gold-soft);
+  background:rgba(228,197,96,0.1);
+  border:1px solid rgba(228,197,96,0.3);
+  padding:8px 14px; border-radius:8px;
+  white-space:nowrap;
+}
+
+.hub-toolbar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.streak-chip{
+  font-family:var(--mono); font-size:12px; font-weight:600;
+  color:var(--parchment);
+  background:rgba(168,64,47,0.12);
+  border:1px solid rgba(168,64,47,0.3);
+  padding:8px 14px; border-radius:999px;
+}
+
 .btn-ghost{
   background:transparent; border:1px solid rgba(228,197,96,0.3);
   color:var(--parchment); font-family:var(--sans); font-size:12px; font-weight:600;
   padding:8px 14px; border-radius:6px; cursor:pointer;
 }
-.btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+.btn-ghost:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+.btn-ghost:disabled{ opacity:0.35; cursor:not-allowed; }
+.wide-ghost{ width:100%; margin-bottom:10px; padding:12px 20px; }
 
 .section-title{
   font-family:var(--serif); font-weight:600; font-size:22px;
@@ -243,12 +271,38 @@ body{
 .quest-card:hover{ transform:translateX(4px); border-color:var(--gold); background:rgba(228,197,96,0.06); }
 .quest-card.locked{ opacity:0.45; cursor:not-allowed; }
 .quest-card.locked:hover{ transform:none; border-color:rgba(228,197,96,0.18); }
+.quest-card.completed{ opacity:0.75; }
+.quest-card.completed:hover{ transform:none; border-color:rgba(228,197,96,0.18); }
 .quest-icon{ font-size:26px; width:44px; text-align:center; }
 .quest-info{ flex:1; }
 .quest-info h4{ margin:0 0 4px; font-family:var(--serif); font-size:16px; color:var(--parchment); }
 .quest-info p{ margin:0; font-size:12.5px; color:rgba(243,231,206,0.6); }
 .quest-meta{ font-family:var(--mono); font-size:11px; color:var(--gold); text-align:right; }
 .quest-meta small{ display:block; color:rgba(243,231,206,0.5); margin-top:2px; }
+
+.diff-chip{
+  display:inline-block;
+  font-family:var(--mono); font-size:9px;
+  padding:2px 6px; border-radius:4px;
+  margin-left:6px; vertical-align:middle;
+  border:1px solid currentColor;
+}
+.diff-easy{ color:var(--sage); }
+.diff-medium{ color:var(--gold); }
+.diff-hard{ color:var(--ember); }
+
+.completion-banner{
+  display:flex; align-items:center; justify-content:center;
+  gap:10px;
+  background:linear-gradient(160deg, rgba(228,197,96,0.18), rgba(228,197,96,0.08));
+  border:1px solid rgba(228,197,96,0.4);
+  border-radius:10px;
+  padding:14px 18px;
+  margin-bottom:24px;
+  color:var(--parchment);
+  font-size:13.5px; font-weight:600;
+  cursor:pointer; text-align:center;
+}
 
 .scroll-panel{
   background:rgba(255,255,255,0.05);
@@ -272,9 +326,9 @@ body{
 .lb-rank{ width:20px; color:var(--gold); font-weight:600; }
 .lb-name{ flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .lb-score{ color:var(--gold-soft); }
+.lb-empty{ font-family:var(--sans); font-size:12.5px; color:rgba(243,231,206,0.5); font-style:italic; }
 
-.sync-text{ font-size:12.5px; color:rgba(243,231,206,0.7); margin:0 0 8px; }
-
+/* ---- Achievements: click to expand instructions ---- */
 .badge-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(78px, 1fr));
@@ -290,7 +344,8 @@ body{
   opacity:0.4;
   filter:grayscale(1);
   transition:opacity .2s, filter .2s, border-color .2s, background .2s;
-  cursor:default;
+  cursor:pointer;
+  grid-column: span 1;
 }
 .badge-cell.unlocked{
   opacity:1;
@@ -300,14 +355,42 @@ body{
 }
 .badge-icon{ font-size:22px; }
 .badge-title{ font-size:10px; color:var(--parchment); line-height:1.3; }
-.pending-list{ display:flex; flex-direction:column; gap:6px; }
-.pending-item{
-  font-family:var(--mono); font-size:11px;
-  color:var(--ember);
-  background:rgba(168,64,47,0.1);
-  border:1px solid rgba(168,64,47,0.3);
-  padding:5px 8px; border-radius:5px;
+.badge-desc{
+  display:none;
+  margin:4px 0 0; font-size:9.5px; line-height:1.4;
+  color:rgba(243,231,206,0.65);
 }
+.badge-cell.expanded{
+  grid-column: 1 / -1;
+  flex-direction:row;
+  text-align:left;
+  align-items:center;
+  gap:10px;
+}
+.badge-cell.expanded .badge-desc{ display:block; }
+
+/* ============================================================
+   SHOP
+   ============================================================ */
+.shop-list{ display:flex; flex-direction:column; gap:12px; margin-top:16px; }
+.shop-item{
+  display:flex; align-items:center; gap:14px;
+  background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
+  border-radius:10px;
+  padding:16px 18px;
+}
+.shop-icon{ font-size:28px; width:40px; text-align:center; }
+.shop-info{ flex:1; }
+.shop-info h4{ margin:0 0 4px; font-family:var(--serif); font-size:15px; color:var(--ink); }
+.shop-owned{ font-family:var(--mono); font-size:11px; color:var(--muted); font-weight:400; }
+.shop-info p{ margin:0; font-size:12.5px; color:var(--muted); }
+.btn-buy{
+  font-family:var(--mono); font-weight:700; font-size:13px;
+  background:var(--gold); color:#241A10;
+  border:none; border-radius:8px; padding:10px 16px;
+  cursor:pointer; white-space:nowrap;
+}
+.btn-buy:disabled{ opacity:0.35; cursor:not-allowed; }
 
 /* ============================================================
    STORY + ASSESSMENT
@@ -320,6 +403,7 @@ body{
 }
 #screen-story .eyebrow, #screen-assessment .eyebrow{ color:var(--gold); }
 #screen-story .title-serif{ color:var(--parchment); text-align:left; }
+.double-xp-note{ font-size:12.5px; color:var(--gold-soft); margin:-14px 0 16px; }
 
 .story-card{
   background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
@@ -340,7 +424,37 @@ body{
   color:var(--gold);
 }
 
-.q-text{ font-family:var(--serif); font-size:19px; margin:0 0 20px; color:var(--ink); }
+.quiz-topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:8px;
+  margin-bottom:6px;
+}
+.hearts-row{ font-size:16px; letter-spacing:2px; }
+.quiz-coin{ font-family:var(--mono); font-size:13px; font-weight:700; color:var(--gold-soft); }
+
+.powerup-bar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.powerup-btn{
+  font-family:var(--sans); font-size:11.5px; font-weight:600;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(228,197,96,0.3);
+  color:var(--parchment);
+  padding:7px 12px; border-radius:999px;
+  cursor:pointer;
+}
+.powerup-btn:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+.powerup-btn:disabled{ opacity:0.3; cursor:not-allowed; }
+
+.hint-text{
+  font-size:12.5px; color:var(--sage); font-weight:600;
+  margin:-8px 0 14px; min-height:16px;
+}
+
+.timer-wrap{ display:flex; align-items:center; gap:10px; margin:0 0 16px; }
+.timer-bar{ flex:1; height:7px; border-radius:999px; background:rgba(255,255,255,0.15); overflow:hidden; }
+.timer-bar-fill{ height:100%; width:100%; background:var(--gold); transition:width 1s linear, background .3s; }
+.timer-text{ font-family:var(--mono); font-size:12px; color:var(--gold); min-width:48px; text-align:right; }
+
+.q-text{ font-family:var(--serif); font-size:19px; margin:0 0 16px; color:var(--ink); }
 .choices{ display:flex; flex-direction:column; gap:10px; }
 .choice-btn{
   text-align:left;
@@ -359,7 +473,7 @@ body{
 .q-feedback{ margin-top:14px; font-size:13.5px; color:var(--muted); min-height:20px; }
 
 /* ============================================================
-   RESULTS
+   RESULTS / REVIEW / COMPLETION
    ============================================================ */
 .result-stats{ display:flex; gap:14px; margin-bottom:20px; }
 .stat-box{
@@ -370,70 +484,7 @@ body{
 .stat-num{ display:block; font-family:var(--mono); font-size:20px; font-weight:600; color:var(--ink); }
 .stat-label{ font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
 
-@media (max-width:480px){
-  .parchment{ padding:30px 22px; }
-  .story-card{ padding:24px 18px; }
-}
-
-/* ============================================================
-   NEW: difficulty chips, completion banner, timer, review,
-   completion + recommendations
-   ============================================================ */
-.diff-chip{
-  display:inline-block;
-  font-family:var(--mono);
-  font-size:9px;
-  padding:2px 6px;
-  border-radius:4px;
-  margin-left:6px;
-  vertical-align:middle;
-  border:1px solid currentColor;
-}
-.diff-easy{ color:var(--sage); }
-.diff-medium{ color:var(--gold); }
-.diff-hard{ color:var(--ember); }
-
-.quest-card.completed{ opacity:0.75; }
-.quest-card.completed:hover{ transform:none; border-color:rgba(228,197,96,0.18); }
-
-.completion-banner{
-  display:flex; align-items:center; justify-content:center;
-  gap:10px;
-  background:linear-gradient(160deg, rgba(228,197,96,0.18), rgba(228,197,96,0.08));
-  border:1px solid rgba(228,197,96,0.4);
-  border-radius:10px;
-  padding:14px 18px;
-  margin-bottom:24px;
-  color:var(--parchment);
-  font-size:13.5px;
-  font-weight:600;
-  cursor:pointer;
-  text-align:center;
-}
-
-.timer-wrap{
-  display:flex; align-items:center; gap:10px;
-  margin:10px 0 16px;
-}
-.timer-bar{
-  flex:1; height:7px; border-radius:999px;
-  background:rgba(255,255,255,0.15);
-  overflow:hidden;
-}
-.timer-bar-fill{
-  height:100%; width:100%;
-  background:var(--gold);
-  transition:width 1s linear, background .3s;
-}
-.timer-text{
-  font-family:var(--mono); font-size:12px; color:var(--gold);
-  min-width:48px; text-align:right;
-}
-
-.review-score{
-  font-family:var(--mono); font-size:13px; color:var(--gold);
-  margin:-8px 0 20px;
-}
+.review-score{ font-family:var(--mono); font-size:13px; color:var(--gold); margin:-8px 0 20px; }
 .review-list{ display:flex; flex-direction:column; gap:14px; }
 .review-item{
   background:linear-gradient(160deg, var(--parchment), var(--parchment-2));
@@ -467,3 +518,8 @@ body{
   padding:2px 6px; border-radius:4px;
 }
 .rec-card p{ margin:0; font-size:13px; color:var(--muted); line-height:1.5; }
+
+@media (max-width:480px){
+  .parchment{ padding:30px 22px; }
+  .story-card{ padding:24px 18px; }
+}

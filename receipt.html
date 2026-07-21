@@ -1,9 +1,17 @@
+
+---
+
+## 📄 **Updated receipt.html**
+
+This version adds the **documentation cleanup services** (Thesis→Research, remove MIT, split READMEs) but **keeps the final price at ₱7,200** by adjusting the discount accordingly.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Service Receipt - Panitikan Quest</title>
+  <title>Service Receipt - NexaRead </title>
   <style>
     * {
       margin: 0;
@@ -153,7 +161,7 @@
       color: #1e1e2a;
     }
 
-    /* PAYMENT SECTION */
+    /* --- PAYMENT SECTION --- */
     .payment-section {
       display: flex;
       align-items: center;
@@ -263,7 +271,7 @@
       color: #3d3a4d;
     }
 
-    /* LIGHTBOX */
+    /* --- LIGHTBOX / FULL-SCREEN OVERLAY --- */
     .lightbox {
       display: none;
       position: fixed;
@@ -351,9 +359,9 @@
 
   <!-- META -->
   <div class="meta">
-    <div><strong>Invoice #</strong> Research-2026-02</div>
-    <div><strong>Date</strong> July 19, 2026</div>
-    <div><strong>For</strong> Cousin · School Research (Expanded Scope)</div>
+    <div><strong>Invoice #</strong> Research-2026-03</div>
+    <div><strong>Date</strong> July 21, 2026</div>
+    <div><strong>For</strong> Cousin · School Research (v3 Complete)</div>
   </div>
 
   <!-- ITEMS TABLE -->
@@ -366,7 +374,7 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Original services -->
+      <!-- Original Services (v1) -->
       <tr>
         <td class="desc">
           📋 Requirements &amp; concept design
@@ -416,7 +424,7 @@
         <td class="amount">₱500</td>
       </tr>
 
-      <!-- NEW services from the feature update -->
+      <!-- v2 Features -->
       <tr>
         <td class="desc">
           📈 Progressive difficulty scaling
@@ -457,6 +465,88 @@
         <td class="qty">1</td>
         <td class="amount">₱1,200</td>
       </tr>
+
+      <!-- v3 Features -->
+      <tr>
+        <td class="desc">
+          🎲 Randomize answers
+          <span class="sub">Shuffle answer options every time</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🏅 Achievements system + animations
+          <span class="sub">Click to view instructions, celebration animation on unlock</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,200</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🏛️ Hall of Legends (local storage)
+          <span class="sub">Empty on first launch, per-username profiles</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,000</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🔄 Reset button
+          <span class="sub">Only works after ALL levels completed</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱300</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🔥 Daily streak system
+          <span class="sub">Track consecutive days, bonus rewards</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱700</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          ❤️ Lives/Hearts system
+          <span class="sub">Difficulty-based life loss, revive via coins or ads</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱800</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🪙 Coins/Diamonds currency + Shop
+          <span class="sub">Earn and spend, 5 power-ups available</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱1,800</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          🗑️ Remove online/sync features
+          <span class="sub">Cleanup of network code, connectivity observers, pending sync</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          📝 README updates (Thesis→Research, remove MIT, split READMEs)
+          <span class="sub">Separate READMEs for Web and Android repos</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
+      <tr>
+        <td class="desc">
+          📺 Ad integration (optional)
+          <span class="sub">Simulated rewarded ads for revives</span>
+        </td>
+        <td class="qty">1</td>
+        <td class="amount">₱500</td>
+      </tr>
     </tbody>
   </table>
 
@@ -464,25 +554,26 @@
   <table style="width:100%; border-collapse:collapse;">
     <tr class="discount-row">
       <td style="width:70%;" class="discount-label">Subtotal (commercial value)</td>
-      <td style="width:30%; text-align:right; font-weight:600;">₱11,400</td>
+      <td style="width:30%; text-align:right; font-weight:600;">₱17,500</td>
     </tr>
     <tr>
       <td class="discount-label" style="padding:4px 0;">
         🎁 Pinsan / Research discount <span style="font-weight:400; color:#6f6b82; font-size:13px;">(family rate + AI‑assisted speed)</span>
       </td>
-      <td style="text-align:right; color:#00a86b; font-weight:700; padding:4px 0;">– ₱6,400</td>
+      <td style="text-align:right; color:#00a86b; font-weight:700; padding:4px 0;">– ₱10,300</td>
     </tr>
     <tr class="total-row">
       <td class="total-label">🤝 TOTAL (agreed rate)</td>
-      <td class="total-amount">₱5,000</td>
+      <td class="total-amount">₱7,200</td>
     </tr>
   </table>
 
   <!-- NOTE -->
   <div class="note">
     <strong>💬 Why this amount?</strong><br>
-    This covers <strong>two full working platforms</strong> (web + Android) plus the <strong>new feature set</strong> (progressive difficulty, sound effects, visible answers, recommendations, and chapter locking).  
-    The commercial value of all services combined is <strong>₱11,400</strong>, but I'm giving a <strong>hefty family discount</strong> to land at <strong>₱5,000</strong> – still a steal for a complete gamified Research tool. 😄
+    This covers <strong>two full working platforms</strong> (web + Android) plus the <strong>full v3 feature set</strong> — including progressive difficulty, sound effects, achievements, daily streaks, hearts system, shop, and complete documentation cleanup.
+    <br><br>
+    The commercial value of all services combined is <strong>₱17,500</strong>, but I'm giving a <strong>hefty family discount</strong> to land at <strong>₱7,200</strong> – still a massive steal for a complete gamified Research tool. 😄
   </div>
 
   <!-- PAYMENT SECTION -->

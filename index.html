@@ -11,28 +11,24 @@
 <body>
 
 <div class="sky"></div>
+<div id="toastContainer" class="toast-container"></div>
 
-<!-- ============ CONNECTION BADGE ============ -->
-<div id="connBadge" class="conn-badge conn-online">
-  <span class="dot"></span>
-  <span id="connText">Online</span>
-</div>
-
-<!-- ============ SCREEN 1: IGN ENTRY ============ -->
+<!-- ============ SCREEN 1: IGN ENTRY / LOGIN ============ -->
 <section id="screen-ign" class="screen active">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter">
     <p class="eyebrow">Panitikan Quest</p>
     <h1 class="title-serif">Isang Kwento, Isang Pakikipagsapalaran.</h1>
-    <p class="sub">No names, no ages, no accounts. Just an in-game name (IGN) so the Hall of Legends knows who to cheer for.</p>
+    <p class="sub">No names, no ages, no accounts. Just an in-game name (IGN) — type your own to start fresh, or a name you've used before on this device to resume it.</p>
 
     <label class="field-label" for="ignInput">Your IGN</label>
     <input id="ignInput" class="ign-input" type="text" maxlength="16" placeholder="e.g. QuietOwl27" autocomplete="off" />
     <p class="hint" id="ignHint">2–16 characters. Letters, numbers, and _ only.</p>
+    <p class="resume-note" id="ignResumeNote"></p>
 
     <button id="enterBtn" class="btn-seal" disabled>Seal Your Scroll</button>
   </div>
-  <p class="foot-note">Gonzalo Aler National High School · Grade 12 Reading Intervention Prototype</p>
+  <p class="foot-note">Gonzalo Aler National High School · Grade 12 Reading Research Tool</p>
 </section>
 
 <!-- ============ SCREEN 2: HUB / MAIN INTERFACE ============ -->
@@ -49,9 +45,16 @@
       </div>
       <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
     </div>
-    <button id="musicToggleBtn" class="btn-ghost" title="Toggle background music">🔇 Music: Off</button>
-    <button id="resetBtn" class="btn-ghost" title="Clear local progress">Reset</button>
+    <div id="coinBalance" class="coin-chip">🪙 0</div>
   </header>
+
+  <div class="hub-toolbar">
+    <span id="streakBadgeText" class="streak-chip">🔥 Start a streak today</span>
+    <button id="shopBtn" class="btn-ghost">🪪 Shop</button>
+    <button id="musicToggleBtn" class="btn-ghost" title="Toggle background music">🔇 Music: Off</button>
+    <button id="switchProfileBtn" class="btn-ghost">Switch Profile</button>
+    <button id="resetBtn" class="btn-ghost" title="Complete every chapter first to unlock Reset">Reset</button>
+  </div>
 
   <div id="completionBanner" class="completion-banner" style="display:none;">
     <span>🎉 All quests complete! Tap to view your reading recommendations.</span>
@@ -66,26 +69,31 @@
     <aside class="hub-side">
       <div class="scroll-panel">
         <h3 class="panel-title">🏆 Hall of Legends</h3>
-        <p class="panel-sub">Top 10 readers — synced across sessions</p>
+        <p class="panel-sub">Every reader who has logged in on this device</p>
         <ol id="leaderboard" class="leaderboard"></ol>
       </div>
 
       <div class="scroll-panel">
         <h3 class="panel-title">🎖️ Achievements</h3>
-        <p class="panel-sub">Unlock these by exploring more quests</p>
+        <p class="panel-sub">Tap a badge for how to earn it</p>
         <div id="badgeGrid" class="badge-grid"></div>
-      </div>
-
-      <div class="scroll-panel sync-panel">
-        <h3 class="panel-title">🌐 Sync Status</h3>
-        <p id="syncText" class="sync-text">All quests synced.</p>
-        <div id="pendingList" class="pending-list"></div>
       </div>
     </aside>
   </div>
 </section>
 
-<!-- ============ SCREEN 3: STORY / PASSAGE ============ -->
+<!-- ============ SCREEN 3: SHOP ============ -->
+<section id="screen-shop" class="screen">
+  <div class="story-wrap">
+    <button class="btn-back" id="backFromShop">← Back to Hub</button>
+    <p class="eyebrow">Reader's Market</p>
+    <h2 class="title-serif">Spend Your Coins</h2>
+    <p class="sub" id="shopCoinBalance">🪙 0</p>
+    <div id="shopList" class="shop-list"></div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4: STORY / PASSAGE ============ -->
 <section id="screen-story" class="screen">
   <div class="story-wrap">
     <button class="btn-back" id="backFromStory">← Back to Hub</button>
@@ -94,27 +102,48 @@
     <div class="story-card">
       <div id="storyText" class="story-text"></div>
     </div>
+    <p class="double-xp-note" id="doubleXpNote"></p>
     <button id="toAssessmentBtn" class="btn-seal">Face the Trial →</button>
   </div>
 </section>
 
-<!-- ============ SCREEN 4: ASSESSMENT ============ -->
+<!-- ============ SCREEN 5: ASSESSMENT ============ -->
 <section id="screen-assessment" class="screen">
   <div class="story-wrap">
-    <p class="eyebrow">Trial · <span id="qCounter">1 / 5</span></p>
+    <div class="quiz-topbar">
+      <p class="eyebrow">Trial · <span id="qCounter">1 / 5</span></p>
+      <span id="heartsRow" class="hearts-row">❤️❤️❤️</span>
+      <span id="quizCoinBalance" class="quiz-coin">🪙 0</span>
+    </div>
+    <div id="powerupBar" class="powerup-bar"></div>
     <div id="timerWrap" class="timer-wrap" style="display:none;">
       <div class="timer-bar"><div id="timerBarFill" class="timer-bar-fill"></div></div>
       <span id="timerText" class="timer-text">⏱ 30s</span>
     </div>
     <div class="story-card quiz-card">
       <h3 id="qText" class="q-text"></h3>
+      <p id="hintText" class="hint-text"></p>
       <div id="choices" class="choices"></div>
       <div id="qFeedback" class="q-feedback"></div>
     </div>
   </div>
 </section>
 
-<!-- ============ SCREEN 5: RESULTS ============ -->
+<!-- ============ SCREEN 6: OUT OF HEARTS ============ -->
+<section id="screen-hearts-empty" class="screen">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter">
+    <p class="eyebrow">💔 Out of Hearts</p>
+    <h1 class="title-serif">Catch Your Breath.</h1>
+    <p class="sub">You've run out of hearts for this attempt. Revive to keep going, or return to the hub and try again anytime — this chapter isn't locked.</p>
+    <p class="sub" id="heartsCoinBalance">🪙 0</p>
+    <button id="reviveBtn" class="btn-seal">❤️ Revive with 30 🪙</button>
+    <button id="watchAdBtn" class="btn-ghost wide-ghost">📺 Watch Ad for +1 Heart (simulated)</button>
+    <button id="giveUpBtn" class="btn-ghost wide-ghost">Return to Hub</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 7: RESULTS ============ -->
 <section id="screen-results" class="screen">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter">
@@ -130,7 +159,7 @@
   </div>
 </section>
 
-<!-- ============ SCREEN 6: REVIEW (completed quests, read-only) ============ -->
+<!-- ============ SCREEN 8: REVIEW (completed quests, read-only) ============ -->
 <section id="screen-review" class="screen">
   <div class="story-wrap">
     <button class="btn-back" id="backFromReview">← Back to Hub</button>
@@ -141,7 +170,7 @@
   </div>
 </section>
 
-<!-- ============ SCREEN 7: GAME COMPLETION + RECOMMENDATIONS ============ -->
+<!-- ============ SCREEN 9: GAME COMPLETION + RECOMMENDATIONS ============ -->
 <section id="screen-completion" class="screen">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter completion-card">
