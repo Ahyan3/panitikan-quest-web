@@ -1,7 +1,3 @@
-Here's the **Web App README.md** only:
-
----
-
 # 🌐 Panitikan Quest - Web App
 
 **A gamified reading comprehension app for Grade 12 research at Gonzalo Aler National High School.**
