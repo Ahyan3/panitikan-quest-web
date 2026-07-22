@@ -200,7 +200,7 @@ const BADGES = [
 const soundManager = (() => {
   let ctx = null;
   let bgmOn = JSON.parse(localStorage.getItem(STORAGE_KEYS.bgm) || 'false');
-  let bgmOsc = null, bgmGain = null;
+  let bgmLoopTimer = null;
 
   function getCtx(){
     if(!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -231,22 +231,26 @@ const soundManager = (() => {
   function playHeartLose(){ tone(220, 0, 0.2, 'sine', 0.09); }
 
   function startBgm(){
-    if(bgmOsc) return;
-    const c = getCtx();
-    bgmOsc = c.createOscillator();
-    const osc2 = c.createOscillator();
-    bgmGain = c.createGain();
-    bgmOsc.type = 'sine'; bgmOsc.frequency.value = 130.81;
-    osc2.type = 'sine'; osc2.frequency.value = 196.00;
-    bgmGain.gain.value = 0.03;
-    bgmOsc.connect(bgmGain); osc2.connect(bgmGain); bgmGain.connect(c.destination);
-    bgmOsc.start(); osc2.start();
-    bgmOsc._partner = osc2;
+    if(bgmLoopTimer) return;
+    scheduleBgmLoop();
   }
   function stopBgm(){
-    if(!bgmOsc) return;
-    try { bgmOsc.stop(); bgmOsc._partner.stop(); } catch(e){}
-    bgmOsc = null; bgmGain = null;
+    if(bgmLoopTimer){ clearTimeout(bgmLoopTimer); bgmLoopTimer = null; }
+  }
+  // Original 8-bit "quest adventure" loop — square-wave lead over a punchy
+  // triangle bass with a light hi-hat pulse. No licensed music is bundled;
+  // this is composed fresh so there's nothing to clear rights on.
+  const MELODY = [261.63,329.63,392.00,523.25,392.00,329.63,293.66,329.63,
+                   261.63,329.63,392.00,523.25,392.00,329.63,293.66,261.63];
+  const BASS = [130.81,130.81,130.81,130.81,196.00,196.00,130.81,130.81];
+  const STEP = 0.2; // seconds per eighth note (~150 BPM feel)
+  function scheduleBgmLoop(){
+    if(!bgmOn) return;
+    MELODY.forEach((freq, i) => tone(freq, i * STEP, STEP * 0.92, 'square', 0.05));
+    BASS.forEach((freq, i) => tone(freq, i * STEP * 2, STEP * 1.8, 'triangle', 0.07));
+    for(let i = 1; i < MELODY.length; i += 2) tone(5200, i * STEP, 0.03, 'square', 0.015);
+    const loopSeconds = MELODY.length * STEP;
+    bgmLoopTimer = setTimeout(scheduleBgmLoop, loopSeconds * 1000);
   }
   function toggleBgm(){
     bgmOn = !bgmOn;
