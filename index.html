@@ -3,76 +3,100 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Panitikan Quest — Reading Comprehension Adventure</title>
+<title>Panitikan Quest — Reading Comprehension</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
 <div class="sky"></div>
 <div id="toastContainer" class="toast-container"></div>
 
-<!-- ============ SCREEN 1: IGN ENTRY / LOGIN ============ -->
+<!-- 1. LOGIN -->
 <section id="screen-ign" class="screen active">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter">
     <p class="eyebrow">Panitikan Quest</p>
     <h1 class="title-serif">Isang Kwento, Isang Pakikipagsapalaran.</h1>
-    <p class="sub">No names, no ages, no accounts. Just an in-game name (IGN) — type your own to start fresh, or a name you've used before on this device to resume it.</p>
-
+    <p class="sub">No names, no ages, no accounts. Just an in-game name (IGN) — type a new one to start, or one you've used on this device to resume.</p>
     <label class="field-label" for="ignInput">Your IGN</label>
     <input id="ignInput" class="ign-input" type="text" maxlength="16" placeholder="e.g. QuietOwl27" autocomplete="off" />
-    <p class="hint" id="ignHint">2–16 characters. Letters, numbers, and _ only.</p>
+    <p class="hint">2–16 characters. Letters, numbers, and _ only.</p>
     <p class="resume-note" id="ignResumeNote"></p>
-
-    <button id="enterBtn" class="btn-seal" disabled>Seal Your Scroll</button>
+    <button id="enterBtn" class="btn-seal" disabled>Begin</button>
   </div>
   <p class="foot-note">Gonzalo Aler National High School · Grade 12 Reading Research Tool</p>
 </section>
 
-<!-- ============ SCREEN 2: HUB / MAIN INTERFACE ============ -->
+<!-- 2. TEST INTRO (pre & post) -->
+<section id="screen-test-intro" class="screen">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter">
+    <p class="eyebrow" id="testIntroEyebrow">Step 1 of 3</p>
+    <h1 class="title-serif" id="testIntroTitle">Reading Pre-Test</h1>
+    <p class="sub" id="testIntroBody"></p>
+    <button id="testIntroBtn" class="btn-seal">Start Pre-Test</button>
+  </div>
+</section>
+
+<!-- 3. PLACEMENT RESULT -->
+<section id="screen-placement" class="screen">
+  <div class="lantern-glow"></div>
+  <div class="parchment card-enter">
+    <p class="eyebrow">Pre-Test Complete</p>
+    <h1 class="title-serif">Your Reading Level</h1>
+    <div class="result-stats">
+      <div class="stat-box"><span id="placeScore" class="stat-num">0/30</span><span class="stat-label">Score</span></div>
+      <div class="stat-box"><span id="placePercent" class="stat-num">0%</span><span class="stat-label">Percent</span></div>
+      <div class="stat-box"><span id="placeBand" class="stat-num">—</span><span class="stat-label">Comprehension</span></div>
+    </div>
+    <div class="tier-callout">
+      <span id="placeTierIcon" class="tier-icon">🌱</span>
+      <div>
+        <p class="tier-label">You'll practice in</p>
+        <h3 id="placeTierName">Novice — Very Easy</h3>
+      </div>
+    </div>
+    <p class="sub" id="placeNote"></p>
+    <button id="placeContinueBtn" class="btn-seal">Enter the Hub</button>
+  </div>
+</section>
+
+<!-- 4. HUB -->
 <section id="screen-hub" class="screen">
   <header class="hub-header">
-    <div class="ign-chip">
-      <span class="chip-label">IGN</span>
-      <span id="ignDisplay">—</span>
+    <div class="ign-chip"><span class="chip-label">IGN</span><span id="ignDisplay">—</span></div>
+    <div class="hub-chips">
+      <span id="tierChip" class="tier-chip">🌱 Novice</span>
+      <span id="streakChip" class="streak-chip">🔥 Start a streak</span>
+      <span id="coinBalance" class="coin-chip">🪙 0</span>
     </div>
-    <div class="xp-wrap">
-      <div class="xp-row">
-        <span id="levelLabel">Apprentice Reader · Lv.1</span>
-        <span id="xpNumbers">0 / 100 XP</span>
-      </div>
-      <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
-    </div>
-    <div id="coinBalance" class="coin-chip">🪙 0</div>
   </header>
 
   <div class="hub-toolbar">
-    <span id="streakBadgeText" class="streak-chip">🔥 Start a streak today</span>
     <button id="shopBtn" class="btn-ghost">🪪 Shop</button>
-    <button id="musicToggleBtn" class="btn-ghost" title="Toggle background music">🔇 Music: Off</button>
+    <button id="musicToggleBtn" class="btn-ghost">🔇 Music: Off</button>
     <button id="switchProfileBtn" class="btn-ghost">Switch Profile</button>
-    <button id="resetBtn" class="btn-ghost" title="Complete every chapter first to unlock Reset">Reset</button>
+    <button id="resetBtn" class="btn-ghost" title="Unlocks after the post-test">Reset</button>
   </div>
 
-  <div id="completionBanner" class="completion-banner" style="display:none;">
-    <span>🎉 All quests complete! Tap to view your reading recommendations.</span>
-  </div>
+  <div id="posttestBanner" class="completion-banner" style="display:none;"></div>
 
   <div class="hub-grid">
     <div class="hub-main">
-      <h2 class="section-title">Choose Your Quest</h2>
-      <div id="questList" class="quest-list"></div>
+      <h2 class="section-title">Your Practice Passages</h2>
+      <div class="tier-progress">
+        <span id="tierProgressText">0 of 3 passages complete</span>
+        <div class="tier-progress-bar"><div id="tierProgressFill" class="tier-progress-fill"></div></div>
+      </div>
+      <div id="passageList" class="quest-list"></div>
     </div>
-
     <aside class="hub-side">
       <div class="scroll-panel">
         <h3 class="panel-title">🏆 Hall of Legends</h3>
         <p class="panel-sub">Every reader who has logged in on this device</p>
         <ol id="leaderboard" class="leaderboard"></ol>
       </div>
-
       <div class="scroll-panel">
         <h3 class="panel-title">🎖️ Achievements</h3>
         <p class="panel-sub">Tap a badge for how to earn it</p>
@@ -82,43 +106,46 @@
   </div>
 </section>
 
-<!-- ============ SCREEN 3: SHOP ============ -->
+<!-- 5. SHOP -->
 <section id="screen-shop" class="screen">
   <div class="story-wrap">
     <button class="btn-back" id="backFromShop">← Back to Hub</button>
     <p class="eyebrow">Reader's Market</p>
-    <h2 class="title-serif">Spend Your Coins</h2>
-    <p class="sub" id="shopCoinBalance">🪙 0</p>
+    <h2 class="title-serif light">Spend Your Coins</h2>
+    <p class="sub light" id="shopCoinBalance">🪙 0</p>
     <div id="shopList" class="shop-list"></div>
   </div>
 </section>
 
-<!-- ============ SCREEN 4: STORY / PASSAGE ============ -->
+<!-- 6. PASSAGE / READING -->
 <section id="screen-story" class="screen">
   <div class="story-wrap">
     <button class="btn-back" id="backFromStory">← Back to Hub</button>
-    <p class="eyebrow" id="storyEyebrow">Chapter</p>
-    <h2 class="title-serif" id="storyTitle">Title</h2>
-    <div class="story-card">
-      <div id="storyText" class="story-text"></div>
+    <div class="clock-row">
+      <span id="readClock" class="clock-chip">📖 15:00 to read</span>
+      <span id="sessionClock" class="clock-chip session">⏳ 60:00 left overall</span>
     </div>
+    <p class="eyebrow" id="storyEyebrow">Passage</p>
+    <h2 class="title-serif light" id="storyTitle">Title</h2>
+    <p class="byline" id="storyByline"></p>
+    <div class="story-card"><div id="storyText" class="story-text"></div></div>
     <p class="double-xp-note" id="doubleXpNote"></p>
-    <button id="toAssessmentBtn" class="btn-seal">Face the Trial →</button>
+    <button id="toQuestionsBtn" class="btn-seal">I'm Ready — Start Questions →</button>
   </div>
 </section>
 
-<!-- ============ SCREEN 5: ASSESSMENT ============ -->
-<section id="screen-assessment" class="screen">
+<!-- 7. QUIZ -->
+<section id="screen-quiz" class="screen">
   <div class="story-wrap">
     <div class="quiz-topbar">
-      <p class="eyebrow">Trial · <span id="qCounter">1 / 5</span></p>
+      <p class="eyebrow">Question <span id="qCounter">1 / 10</span> · <span id="qPassageName"></span></p>
       <span id="heartsRow" class="hearts-row">❤️❤️❤️</span>
-      <span id="quizCoinBalance" class="quiz-coin">🪙 0</span>
+      <span id="quizCoin" class="quiz-coin">🪙 0</span>
     </div>
     <div id="powerupBar" class="powerup-bar"></div>
-    <div id="timerWrap" class="timer-wrap" style="display:none;">
-      <div class="timer-bar"><div id="timerBarFill" class="timer-bar-fill"></div></div>
-      <span id="timerText" class="timer-text">⏱ 30s</span>
+    <div class="timer-wrap">
+      <div class="timer-bar"><div id="qTimerFill" class="timer-bar-fill"></div></div>
+      <span id="qTimerText" class="timer-text">⏱ 60s</span>
     </div>
     <div class="story-card quiz-card">
       <h3 id="qText" class="q-text"></h3>
@@ -129,64 +156,61 @@
   </div>
 </section>
 
-<!-- ============ SCREEN 6: OUT OF HEARTS ============ -->
-<section id="screen-hearts-empty" class="screen">
+<!-- 8. OUT OF HEARTS -->
+<section id="screen-hearts" class="screen">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter">
     <p class="eyebrow">💔 Out of Hearts</p>
     <h1 class="title-serif">Catch Your Breath.</h1>
-    <p class="sub">You've run out of hearts for this attempt. Revive to keep going, or return to the hub and try again anytime — this chapter isn't locked.</p>
-    <p class="sub" id="heartsCoinBalance">🪙 0</p>
+    <p class="sub">You've run out of hearts for this attempt. Revive to keep going, or return to the hub — this passage isn't locked.</p>
+    <p class="sub" id="heartsCoin">🪙 0</p>
     <button id="reviveBtn" class="btn-seal">❤️ Revive with 30 🪙</button>
-    <button id="watchAdBtn" class="btn-ghost wide-ghost">📺 Watch Ad for +1 Heart (simulated)</button>
-    <button id="giveUpBtn" class="btn-ghost wide-ghost">Return to Hub</button>
+    <button id="adBtn" class="btn-ghost wide-ghost">📺 Watch Ad for +1 Heart (simulated)</button>
+    <button id="quitBtn" class="btn-ghost wide-ghost">Return to Hub</button>
   </div>
 </section>
 
-<!-- ============ SCREEN 7: RESULTS ============ -->
-<section id="screen-results" class="screen">
+<!-- 9. PASSAGE RESULT -->
+<section id="screen-result" class="screen">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter">
-    <p class="eyebrow" id="resultBadge">Trial Complete</p>
-    <h1 class="title-serif" id="resultHeadline">Well Read.</h1>
+    <p class="eyebrow" id="resTitle">Passage</p>
+    <h1 class="title-serif" id="resHeadline">Well Read.</h1>
     <div class="result-stats">
-      <div class="stat-box"><span id="resultScore" class="stat-num">0/5</span><span class="stat-label">Correct</span></div>
-      <div class="stat-box"><span id="resultXP" class="stat-num">+0</span><span class="stat-label">XP Earned</span></div>
-      <div class="stat-box"><span id="resultTime" class="stat-num">0s</span><span class="stat-label">Time Used</span></div>
+      <div class="stat-box"><span id="resScore" class="stat-num">0/10</span><span class="stat-label">Correct</span></div>
+      <div class="stat-box"><span id="resPercent" class="stat-num">0%</span><span class="stat-label">Percent</span></div>
+      <div class="stat-box"><span id="resBand" class="stat-num">—</span><span class="stat-label">Level</span></div>
     </div>
-    <p class="sub" id="resultNote"></p>
-    <button id="continueBtn" class="btn-seal">Return to Hub</button>
+    <p class="sub" id="resNote"></p>
+    <button id="resContinueBtn" class="btn-seal">Continue</button>
   </div>
 </section>
 
-<!-- ============ SCREEN 8: REVIEW (completed quests, read-only) ============ -->
+<!-- 10. REVIEW -->
 <section id="screen-review" class="screen">
   <div class="story-wrap">
     <button class="btn-back" id="backFromReview">← Back to Hub</button>
-    <p class="eyebrow" id="reviewEyebrow">Chapter</p>
-    <h2 class="title-serif" id="reviewTitle">Title</h2>
-    <p class="review-score" id="reviewScore">Best score: 0/5</p>
+    <h2 class="title-serif light" id="reviewTitle">Title</h2>
+    <p class="review-score" id="reviewScore">Best score: 0/10</p>
     <div id="reviewList" class="review-list"></div>
   </div>
 </section>
 
-<!-- ============ SCREEN 9: GAME COMPLETION + RECOMMENDATIONS ============ -->
-<section id="screen-completion" class="screen">
+<!-- 11. GROWTH REPORT -->
+<section id="screen-growth" class="screen">
   <div class="lantern-glow"></div>
   <div class="parchment card-enter completion-card">
-    <p class="eyebrow">🏆 Game Complete</p>
-    <h1 class="title-serif">Every Chapter, Read.</h1>
+    <p class="eyebrow">📈 Growth Report</p>
+    <h1 class="title-serif">Pre-Test vs Post-Test</h1>
     <div class="result-stats">
-      <div class="stat-box"><span id="completionScore" class="stat-num">0/30</span><span class="stat-label">Total Score</span></div>
-      <div class="stat-box"><span id="completionXP" class="stat-num">0 XP</span><span class="stat-label">Earned</span></div>
-      <div class="stat-box"><span id="completionTier" class="stat-num">—</span><span class="stat-label">Reader Tier</span></div>
+      <div class="stat-box"><span id="growPre" class="stat-num small">—</span><span class="stat-label">Pre-Test</span><span id="growPreBand" class="stat-sub"></span></div>
+      <div class="stat-box"><span id="growPost" class="stat-num small">—</span><span class="stat-label">Post-Test</span><span id="growPostBand" class="stat-sub"></span></div>
+      <div class="stat-box"><span id="growDelta" class="stat-num">0</span><span class="stat-label">Change</span></div>
     </div>
-    <p class="sub" id="completionTierNote"></p>
-
-    <h3 class="panel-title" style="margin-top:10px;">📚 Recommended Next Reads</h3>
-    <div id="recommendationList" class="recommendation-list"></div>
-
-    <button id="completionContinueBtn" class="btn-seal" style="margin-top:18px;">Return to Hub</button>
+    <p class="sub" id="growSummary"></p>
+    <h3 class="panel-title dark">📚 Recommended Next Reads</h3>
+    <div id="growRecs" class="recommendation-list"></div>
+    <button id="growBackBtn" class="btn-seal" style="margin-top:18px;">Return to Hub</button>
   </div>
 </section>
 
