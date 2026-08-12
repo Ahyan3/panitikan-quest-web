@@ -59,10 +59,24 @@ Worth flagging to your adviser before the instrument is used for real scoring.
 ## Game layer
 
 Hearts (practice only — never during a test), coins, a shop with five power-ups,
-daily streaks, achievements with tap-to-expand instructions and unlock celebrations,
-and a per-device Hall of Legends. Answer choices are shuffled on every render, and
-the correct answer is always revealed after each question so students can learn from
-misses.
+daily streaks, seven achievements with tap-to-expand instructions and unlock
+celebrations, and a per-device Hall of Legends that starts genuinely empty and fills
+only as real students log in. Answer choices are re-shuffled on every render, and the
+correct answer is always revealed after each question so students can learn from
+misses. **Reset is locked until the post-test is finished**, so students cannot reset
+to farm easy passages.
+
+All audio is generated at runtime with the Web Audio API — no audio files are bundled.
+This includes the sound effects and an original 8-bit adventure music loop with an
+on/off toggle.
+
+## Note on ads
+
+The "watch ad" button is a **simulated** reward — a short delay, then the payout. No
+real ad SDK or ad network is integrated. Real advertising requires compliance review
+for a study involving minors (COPPA-style rules, the Philippines' Data Privacy Act,
+and your school's own policy), so that decision belongs to you and your adviser
+rather than to the prototype.
 
 ## Privacy
 
@@ -74,6 +88,20 @@ anywhere. There is no network code in this app.
 
 Open the folder in VS Code, install the **Live Server** extension, then right-click
 `index.html` → *Open with Live Server*. No build step, no dependencies.
+
+## Project structure
+
+```
+reading-quest/
+├── index.html    # all 11 screens (login, test intro, placement, hub, shop,
+│                 #   reading, quiz, hearts, result, review, growth report)
+├── script.js     # question bank + engine (profiles, timers, placement, scoring)
+├── style.css     # night-sky / parchment design system
+└── README.md
+```
+
+Inside `script.js`, the question bank sits at the top (`PRETEST_PASSAGES` and the five
+tier arrays), followed by the sound manager, profile storage, and the screen flow.
 
 ## Adding more passages
 

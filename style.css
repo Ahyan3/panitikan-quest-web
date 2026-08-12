@@ -9,6 +9,7 @@
   --radius:10px; --shadow-deep:0 20px 50px rgba(10,14,30,.45);
 }
 *{box-sizing:border-box}
+body,.screen{overflow-wrap:break-word}
 html,body{height:100%}
 body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow-x:hidden}
 .sky{position:fixed;inset:0;z-index:-2;
@@ -22,7 +23,13 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
     radial-gradient(1px 1px at 80% 50%,rgba(255,255,255,.35),transparent),
     radial-gradient(1px 1px at 92% 25%,rgba(255,255,255,.4),transparent),
     radial-gradient(1.5px 1.5px at 45% 85%,rgba(255,255,255,.3),transparent)}
-.screen{display:none;min-height:100vh;padding:44px 20px 60px;align-items:center;flex-direction:column}
+.screen{display:none;min-height:100vh;min-height:100dvh;
+  padding:clamp(20px,5vw,44px) clamp(12px,4vw,20px) clamp(32px,8vw,60px);
+  padding-left:max(clamp(12px,4vw,20px),env(safe-area-inset-left));
+  padding-right:max(clamp(12px,4vw,20px),env(safe-area-inset-right));
+  align-items:center;flex-direction:column;
+  /* 'safe' keeps tall content from being clipped at the top when centred */
+  justify-content:safe center}
 .screen.active{display:flex}
 
 /* Toasts */
@@ -40,8 +47,8 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
   50%{transform:translateY(2px) scale(1.08) rotate(2deg)}100%{transform:translateY(0) scale(1)}}
 
 /* Parchment cards */
-.parchment{width:min(560px,94vw);background:linear-gradient(160deg,var(--parchment),var(--parchment-2));
-  border-radius:var(--radius);padding:38px 32px;position:relative;text-align:center;
+.parchment{width:min(620px,100%);background:linear-gradient(160deg,var(--parchment),var(--parchment-2));
+  border-radius:var(--radius);padding:clamp(24px,4vw,40px) clamp(20px,3.5vw,34px);position:relative;text-align:center;
   box-shadow:var(--shadow-deep),inset 0 0 0 1px rgba(107,93,70,.15)}
 .parchment::before{content:'';position:absolute;inset:10px;border:1px solid rgba(107,93,70,.25);
   border-radius:6px;pointer-events:none}
@@ -68,10 +75,28 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
   background:linear-gradient(160deg,var(--gold-soft),var(--gold));color:#241A10;cursor:pointer;
   box-shadow:0 8px 18px rgba(201,162,39,.35);transition:transform .12s,box-shadow .12s;margin-bottom:10px}
 .btn-seal:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 22px rgba(201,162,39,.45)}
-.btn-seal:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn-seal:disabled{opacity:.6;cursor:not-allowed;box-shadow:none;filter:saturate(.75)}
 .btn-ghost{background:transparent;border:1px solid rgba(228,197,96,.3);color:var(--parchment);
-  font-size:12px;font-weight:600;padding:8px 14px;border-radius:6px;cursor:pointer}
+  font-size:12px;font-weight:600;padding:8px 14px;border-radius:6px;cursor:pointer;
+  font-family:var(--sans);transition:border-color .15s,color .15s,background .15s}
 .btn-ghost:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+
+/* Ghost buttons sitting INSIDE a light parchment card would be cream-on-cream
+   and effectively invisible, so they switch to dark ink with a stronger border. */
+.parchment .btn-ghost,
+.story-card .btn-ghost{
+  color:var(--ink);
+  border:1.5px solid rgba(107,93,70,.55);
+  background:rgba(255,255,255,.35);
+  font-size:13.5px;
+  border-radius:8px;
+}
+.parchment .btn-ghost:hover:not(:disabled),
+.story-card .btn-ghost:hover:not(:disabled){
+  color:var(--ink);
+  border-color:var(--gold);
+  background:rgba(255,255,255,.6);
+}
 .wide-ghost{width:100%;margin-bottom:10px;padding:12px 20px}
 .btn-back{background:none;border:none;color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px}
 .foot-note{margin-top:22px;font-size:11.5px;color:rgba(243,231,206,.55);font-family:var(--mono);text-align:center}
@@ -85,7 +110,7 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .tier-callout h3{margin:2px 0 0;font-family:var(--serif);font-size:19px;color:var(--ink)}
 
 /* Hub */
-#screen-hub{align-items:stretch;max-width:1060px;margin:0 auto}
+#screen-hub{align-items:stretch;justify-content:flex-start;width:100%;max-width:1240px;margin:0 auto}
 .hub-header{display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap}
 .ign-chip{display:flex;flex-direction:column;background:rgba(255,255,255,.06);
   border:1px solid rgba(228,197,96,.25);padding:8px 16px;border-radius:8px;color:var(--parchment)}
@@ -99,7 +124,7 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .coin-chip{color:var(--gold-soft);background:rgba(228,197,96,.1);border:1px solid rgba(228,197,96,.3)}
 .hub-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .section-title{font-family:var(--serif);font-weight:600;font-size:21px;color:var(--parchment);margin:0 0 12px}
-.hub-grid{display:grid;grid-template-columns:1fr 320px;gap:26px}
+.hub-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(16px,2.5vw,28px)}
 @media(max-width:820px){.hub-grid{grid-template-columns:1fr}}
 
 .tier-progress{margin-bottom:16px}
@@ -167,14 +192,15 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .btn-buy:disabled{opacity:.35;cursor:not-allowed}
 
 /* Story + Quiz */
-.story-wrap{width:min(720px,94vw)}
+.story-wrap{width:min(760px,100%)}
 .clock-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .clock-chip{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gold);
   background:rgba(228,197,96,.1);border:1px solid rgba(228,197,96,.3);padding:7px 13px;border-radius:999px}
 .clock-chip.session{color:var(--ember);background:rgba(168,64,47,.1);border-color:rgba(168,64,47,.35)}
 .story-card{background:linear-gradient(160deg,var(--parchment),var(--parchment-2));border-radius:var(--radius);
-  padding:30px 28px;box-shadow:var(--shadow-deep);margin-bottom:20px}
-.story-text{font-family:var(--serif);font-size:16.5px;line-height:1.85;color:var(--ink);white-space:pre-line}
+  padding:clamp(20px,3.5vw,34px) clamp(18px,3vw,32px);box-shadow:var(--shadow-deep);margin-bottom:20px}
+.story-text{font-family:var(--serif);font-size:clamp(15px,1.05vw + 13px,18.5px);
+  line-height:1.85;color:var(--ink);white-space:pre-line;overflow-wrap:break-word}
 .double-xp-note{font-size:12.5px;color:var(--gold-soft);margin:-8px 0 14px}
 .quiz-topbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .hearts-row{font-size:15px;letter-spacing:2px}
@@ -188,10 +214,12 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .timer-bar{flex:1;height:7px;border-radius:999px;background:rgba(255,255,255,.15);overflow:hidden}
 .timer-bar-fill{height:100%;width:100%;background:var(--gold);transition:width 1s linear,background .3s}
 .timer-text{font-family:var(--mono);font-size:12px;color:var(--gold);min-width:46px;text-align:right}
-.q-text{font-family:var(--serif);font-size:18px;margin:0 0 14px;color:var(--ink);white-space:pre-line}
+.q-text{font-family:var(--serif);font-size:clamp(16px,1vw + 14px,20px);margin:0 0 14px;
+  color:var(--ink);white-space:pre-line;overflow-wrap:break-word}
 .hint-text{font-size:12.5px;color:var(--sage);font-weight:600;margin:-6px 0 12px;min-height:16px}
 .choices{display:flex;flex-direction:column;gap:10px}
-.choice-btn{text-align:left;font-family:var(--sans);font-size:14.5px;padding:13px 16px;border-radius:8px;
+.choice-btn{text-align:left;font-family:var(--sans);font-size:clamp(13.5px,.5vw + 12.5px,15.5px);
+  padding:clamp(12px,2vw,15px) clamp(13px,2.5vw,18px);overflow-wrap:break-word;border-radius:8px;
   border:1.5px solid rgba(107,93,70,.3);background:rgba(255,255,255,.4);cursor:pointer;
   transition:border-color .12s,background .12s}
 .choice-btn:hover:not(:disabled){border-color:var(--gold)}
@@ -211,11 +239,12 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .review-score{font-family:var(--mono);font-size:13px;color:var(--gold);margin:-6px 0 18px}
 .review-list{display:flex;flex-direction:column;gap:14px}
 .review-item{background:linear-gradient(160deg,var(--parchment),var(--parchment-2));border-radius:10px;padding:18px 20px}
-.review-q{font-family:var(--serif);font-size:15.5px;color:var(--ink);margin:0 0 8px;white-space:pre-line}
+.review-q{font-family:var(--serif);font-size:clamp(14.5px,.4vw+13.5px,16px);color:var(--ink);
+  margin:0 0 8px;white-space:pre-line;overflow-wrap:break-word}
 .review-answer{font-size:13.5px;margin:4px 0}
 .review-answer.right{color:var(--sage);font-weight:600}
 .review-answer.wrong{color:var(--ember);font-weight:600}
-.completion-card{width:min(600px,94vw);text-align:left}
+.completion-card{width:min(660px,100%);text-align:left}
 .completion-card .eyebrow,.completion-card .title-serif{text-align:center}
 .recommendation-list{display:flex;flex-direction:column;gap:12px;margin-top:10px}
 .rec-card{background:rgba(255,255,255,.4);border:1px solid rgba(107,93,70,.2);border-radius:8px;padding:14px 16px}
@@ -224,8 +253,73 @@ body{margin:0;font-family:var(--sans);color:var(--ink);min-height:100vh;overflow
 .rec-tag{font-family:var(--mono);font-size:9.5px;font-weight:600;color:var(--gold);
   background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);padding:2px 6px;border-radius:4px}
 .rec-card p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
-@media(max-width:480px){
-  .parchment{padding:28px 20px}
-  .story-card{padding:22px 18px}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Tablets and small laptops — sidebar drops under the main column */
+@media(max-width:900px){
+  .hub-grid{grid-template-columns:1fr}
+  .hub-side{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .scroll-panel{margin-bottom:0}
+}
+
+/* Large phones / small tablets */
+@media(max-width:700px){
+  .hub-side{grid-template-columns:1fr}
+  .hub-header{gap:12px}
+  .quiz-topbar{gap:6px}
+  .clock-row{gap:8px}
+}
+
+/* Phones */
+@media(max-width:560px){
+  .result-stats{gap:8px}
+  .stat-num{font-size:17px}
+  .stat-num.small{font-size:12.5px}
+  .stat-label{font-size:9px}
+  .hub-toolbar{gap:6px}
+  .btn-ghost{padding:9px 12px;font-size:11.5px}
+  .quest-card{padding:14px;gap:10px}
+  .quest-icon{font-size:21px;width:32px}
+  .quest-info h4{font-size:15px}
+  .quest-meta{font-size:10px}
+  .badge-grid{grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px}
+  .shop-item{padding:14px;gap:10px}
+  .shop-icon{font-size:23px;width:32px}
+  .btn-buy{padding:9px 12px;font-size:12px}
+  .toast{font-size:12px;padding:9px 16px}
+  .review-item{padding:15px 16px}
+  .tier-callout{padding:14px;gap:10px}
+  .tier-icon{font-size:28px}
+}
+
+/* Small phones — stack the stat boxes so numbers never truncate */
+@media(max-width:400px){
   .result-stats{flex-direction:column}
+  .stat-box{flex-direction:row;justify-content:space-between;align-items:center;padding:11px 14px}
+  .stat-num{font-size:16px}
+  .stat-label{font-size:10px}
+  .powerup-btn{font-size:10.5px;padding:6px 10px}
+  .hearts-row{font-size:13px}
+  .clock-chip{font-size:10.5px;padding:6px 10px}
+}
+
+/* Landscape phones — trim vertical padding so content still fits */
+@media(max-height:520px) and (orientation:landscape){
+  .screen{padding-top:16px;padding-bottom:24px;justify-content:flex-start}
+  .lantern-glow{display:none}
+}
+
+/* Keep tap targets comfortable on touch devices */
+@media(hover:none){
+  .choice-btn{min-height:48px}
+  .btn-ghost,.btn-buy,.powerup-btn{min-height:40px}
+  .quest-card{min-height:64px}
+}
+
+/* Very wide monitors — cap line length so passages stay readable */
+@media(min-width:1500px){
+  #screen-hub{max-width:1360px}
 }
